@@ -414,7 +414,22 @@ namespace _2D_StarWars_Fighter
                     {
                         b.isVisible = false;
 
-                        player.health -= 35; // COLLISION
+                        // damage
+                        if (player.isDefending)
+                        {
+                            if (player.spriteEffect == SpriteEffects.None && b.isRight == true)
+                            {
+                                player.health -= 35;
+                            }
+                            else if (player.spriteEffect == SpriteEffects.FlipHorizontally && b.isLeft == true)
+                            {
+                                player.health -= 35;
+                            }
+                        }
+                        else
+                        {
+                            player.health -= 35; // COLLISION
+                        }
                       //  Hit hit = new Hit(hitTextures, new Vector2(player.position.X + (player.texture.Width/2), player.position.Y + (player.texture.Height/2) ));
                         Hit hit = new Hit(hitTextures, player.position);
                         hit.isVisible = true;
