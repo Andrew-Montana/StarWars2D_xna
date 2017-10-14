@@ -279,9 +279,17 @@ namespace _2D_StarWars_Fighter
         {
             if (droidList.Count == 0 && destroyedDroidsCount == 0)
             {
-                GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player, hitExplosions, hitTextures);
+              //  GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player, hitExplosions, hitTextures);
+                GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(1000, 680), player, hitExplosions, hitTextures, scorpionList, sandExplosionList, sandTextures);
+                droid.isRight = true;
+                droid.spriteEffect = SpriteEffects.FlipHorizontally;
                 droid.IsVisible = true;
                 droidList.Add(droid);
+
+                // second droid
+                GonkDroid droid2 = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player, hitExplosions, hitTextures, scorpionList, sandExplosionList, sandTextures);
+                droid2.IsVisible = true;
+                droidList.Add(droid2);
             }
         }
 

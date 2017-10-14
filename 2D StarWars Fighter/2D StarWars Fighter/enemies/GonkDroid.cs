@@ -23,9 +23,21 @@ namespace _2D_StarWars_Fighter.enemies
         public Player playerRef;
         public List<Hit> hitExplosions;
         public Texture2D[] hitTextures;
+        //
+        public List<Scorpion> scorpList;
+        public List<SandExplosion> sandExplosionList;
+        public Texture2D[] sandTextures = new Texture2D[8];
+        //
+        public bool isRight;
+        public SpriteEffects spriteEffect;
 
-        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p, List<Hit> hitList, Texture2D[] newhitTexture)
+        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p, List<Hit> hitList, Texture2D[] newhitTexture, List<Scorpion> scorpionsList, List<SandExplosion> mainSandExplosionList, Texture2D[] MainSandTextures)
         {
+            sandTextures = MainSandTextures;
+            sandExplosionList = mainSandExplosionList;
+            scorpList = scorpionsList;
+            spriteEffect = SpriteEffects.None;
+            isRight = false;
             hitExplosions = hitList;
             hitTextures = newhitTexture;
             playerRef = p;
@@ -43,9 +55,19 @@ namespace _2D_StarWars_Fighter.enemies
         {
             boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            if ((position.X - playerRef.position.X) <= 2000)
+            if ((position.X - playerRef.position.X) <= 2000 && isRight == false)
             {
                 Shoot();
+            }
+            if (isRight == true)
+            {
+                foreach (Scorpion scorp in scorpList)
+                {
+                    if ((scorp.position.X - position.X) <= 300)
+                    {
+                        Shoot();
+                    }
+                }
             }
             ManageBullets();
             Collision();
@@ -57,7 +79,7 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 b.Draw(spriteBatch);
             }
-            spriteBatch.Draw(texture, position, Color.White);
+            spriteBatch.Draw(texture, position, null, Color.White, 0.0F, new Vector2(0, 0), 1F, spriteEffect, 0);
         }
 
         private void Shoot()
@@ -72,6 +94,10 @@ namespace _2D_StarWars_Fighter.enemies
                     Bullet b = new Bullet(bulletTexture) { isVisible = true };
                     b.position = position;
                     b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
+                    if (isRight == true)
+                    {
+                        b.position.X += 40;
+                    }
                     bulletList.Add(b);
                     texture = costume2;
                 }
@@ -89,12 +115,25 @@ namespace _2D_StarWars_Fighter.enemies
         {
             foreach(Bullet b in bulletList)
             {
-                b.position.X -= b.speed;
-                b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
-
-                if (b.position.X <= 0)
+                if (isRight == false)
                 {
-                    b.isVisible = false;
+                    b.position.X -= b.speed;
+                    b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
+
+                    if (b.position.X <= 0)
+                    {
+                        b.isVisible = false;
+                    }
+                }
+                else if (isRight == true)
+                {
+                    b.position.X += b.speed;
+                    b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
+
+                    if (b.position.X >= 1600)
+                    {
+                        b.isVisible = false;
+                    }
                 }
                 BulletCollision(b);
             }
@@ -130,6 +169,16 @@ namespace _2D_StarWars_Fighter.enemies
                 Hit hit = new Hit(hitTextures, new Vector2( playerRef.position.X + 30,  playerRef.position.Y + 30));
                 hit.isVisible = true;
                 hitExplosions.Add(hit);
+            }
+
+            foreach (Scorpion s in scorpList)
+            {
+                if (bullet.boundingBox.Intersects(s.boundingBox))
+                {
+                    s.isVisible = false;
+                    SandExplosion explosion = new SandExplosion(new Vector2(s.position.X, s.position.Y + 20), sandTextures) { isVisible = true };
+                    sandExplosionList.Add(explosion);
+                }
             }
 
         }
