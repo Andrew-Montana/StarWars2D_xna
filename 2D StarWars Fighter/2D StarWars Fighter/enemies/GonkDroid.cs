@@ -19,9 +19,11 @@ namespace _2D_StarWars_Fighter.enemies
         public Rectangle boundingBox;
         public List<Bullet> bulletList = new List<Bullet>();
         public int bulletDelay;
+        public Player playerRef;
 
-        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition)
+        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p)
         {
+            playerRef = p;
             costume1 = newCostume1;
             costume2 = newCostume2;
             texture = costume1;
@@ -36,8 +38,12 @@ namespace _2D_StarWars_Fighter.enemies
         {
             boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            Shoot();
+            if ((position.X - playerRef.position.X) <= 1000)
+            {
+                Shoot();
+            }
             ManageBullets();
+            Collision();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -52,10 +58,11 @@ namespace _2D_StarWars_Fighter.enemies
 
             if (bulletDelay <= 0)
             {
-                if (bulletList.Count <= 20)
+                if (bulletList.Count <= 40)
                 {
                     Bullet b = new Bullet(bulletTexture) { isLeft = true, isVisible = true };
                     b.position = position;
+                    b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
                     bulletList.Add(b);
                     texture = costume2;
                 }
@@ -71,6 +78,53 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void ManageBullets()
         {
+            foreach(Bullet b in bulletList)
+            {
+                b.position.X -= b.speed;
+                b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
+
+                if (b.position.X <= 0)
+                {
+                    b.isVisible = false;
+                }
+                BulletCollision(b);
+            }
+
+
+            for (int i = 0; i < bulletList.Count; i++)
+            {
+                if (bulletList[i].isVisible == false)
+                {
+                    bulletList.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        private void BulletCollision(Bullet bullet)
+        {
+            if (playerRef.boundingBox.Intersects(bullet.boundingBox))
+            {
+                if (playerRef.isDefending != true)
+                {
+                    if (playerRef.spriteEffect == SpriteEffects.None)
+                    {
+                        playerRef.health -= 30;
+                        bullet.isVisible = false;
+                    }
+                }
+            }
+
+        }
+
+        private void Collision()
+        {
+
+            if (playerRef.boundingBox.Intersects(boundingBox) && playerRef.isAttacking)
+            {
+                IsVisible = false;
+                HUD.playerScore += 50;
+            }
 
         }
 
