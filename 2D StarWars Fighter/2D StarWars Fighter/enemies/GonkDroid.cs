@@ -34,11 +34,11 @@ namespace _2D_StarWars_Fighter.enemies
             bulletDelay = 35;
         }
 
-        public void Update(ContentManager Content)
+        public void Update(GameTime gameTime)
         {
             boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            if ((position.X - playerRef.position.X) <= 1000)
+            if ((position.X - playerRef.position.X) <= 2000)
             {
                 Shoot();
             }
@@ -48,6 +48,10 @@ namespace _2D_StarWars_Fighter.enemies
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            foreach (Bullet b in bulletList)
+            {
+                b.Draw(spriteBatch);
+            }
             spriteBatch.Draw(texture, position, Color.White);
         }
 
@@ -60,7 +64,7 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 if (bulletList.Count <= 40)
                 {
-                    Bullet b = new Bullet(bulletTexture) { isLeft = true, isVisible = true };
+                    Bullet b = new Bullet(bulletTexture) { isVisible = true };
                     b.position = position;
                     b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
                     bulletList.Add(b);
@@ -112,6 +116,10 @@ namespace _2D_StarWars_Fighter.enemies
                         playerRef.health -= 30;
                         bullet.isVisible = false;
                     }
+                }
+                else if(playerRef.isDefending == true)
+                {
+                    bullet.isVisible = false;
                 }
             }
 

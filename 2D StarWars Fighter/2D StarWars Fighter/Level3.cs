@@ -112,7 +112,6 @@ namespace _2D_StarWars_Fighter
             {
                 hitTextures[i] = Content.Load<Texture2D>("level3/red blast/blocked" + (i + 1).ToString());
             }
-
             // hud
             hud.LoadContent(Content, player);
 
@@ -158,6 +157,12 @@ namespace _2D_StarWars_Fighter
             foreach (Hit h in hitExplosions)
             {
                 h.Update(gameTime);
+            }
+
+            // Droids
+            foreach(GonkDroid gd in droidList)
+            {
+                gd.Update(gameTime);
             }
 
             // ManageWalkers();
