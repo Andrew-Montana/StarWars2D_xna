@@ -78,6 +78,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="EndScene_1level.cs" />
     <Compile Include="enemies\BigMachine.cs" />
+    <Compile Include="enemies\DestroyedGonkDroid.cs" />
     <Compile Include="enemies\GonkDroid.cs" />
     <Compile Include="enemies\Hit.cs" />
     <Compile Include="enemies\SandExplosion.cs" />

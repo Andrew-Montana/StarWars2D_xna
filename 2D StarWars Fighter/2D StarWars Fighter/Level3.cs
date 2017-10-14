@@ -48,6 +48,10 @@ namespace _2D_StarWars_Fighter
         private Texture2D costume1, costume2, blaster_bolt;
         private List<GonkDroid> droidList = new List<GonkDroid>();
         private int destroyedDroidsCount;
+        //
+        private List<DestroyedGonkDroid> destroyedDroidList = new List<DestroyedGonkDroid>();
+        private Texture2D costume5; // destoyed void texture
+
 
         public Level3()
         {
@@ -64,6 +68,7 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            costume5 = Content.Load<Texture2D>("level3/droid/costume5");
             // droid
             costume1 = Content.Load<Texture2D>("level3/droid/costume1");
             costume2 = Content.Load<Texture2D>("level3/droid/costume2");
@@ -219,6 +224,10 @@ namespace _2D_StarWars_Fighter
             {
                 gd.Draw(spriteBatch);
             }
+            foreach (DestroyedGonkDroid dgd in destroyedDroidList)
+            {
+                dgd.Draw(spriteBatch);
+            }
             // player
             player.Draw(spriteBatch);
             // scorpions
@@ -253,7 +262,7 @@ namespace _2D_StarWars_Fighter
         {
             if (droidList.Count == 0 && destroyedDroidsCount == 0)
             {
-                GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player);
+                GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player, hitExplosions, hitTextures);
                 droid.IsVisible = true;
                 droidList.Add(droid);
             }
@@ -384,8 +393,11 @@ namespace _2D_StarWars_Fighter
                 {
                     if (droidList[i].IsVisible == false)
                     {
+                        DestroyedGonkDroid destroyedDroid = new DestroyedGonkDroid(costume5, droidList[i].position) { isVisible = true };
+                        destroyedDroidList.Add(destroyedDroid);
                         droidList.RemoveAt(i);
                         i--;
+                        destroyedDroidsCount++;
                     }
                 }
             }

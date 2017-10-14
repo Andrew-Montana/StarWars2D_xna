@@ -19,10 +19,15 @@ namespace _2D_StarWars_Fighter.enemies
         public Rectangle boundingBox;
         public List<Bullet> bulletList = new List<Bullet>();
         public int bulletDelay;
+        // refs
         public Player playerRef;
+        public List<Hit> hitExplosions;
+        public Texture2D[] hitTextures;
 
-        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p)
+        public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p, List<Hit> hitList, Texture2D[] newhitTexture)
         {
+            hitExplosions = hitList;
+            hitTextures = newhitTexture;
             playerRef = p;
             costume1 = newCostume1;
             costume2 = newCostume2;
@@ -121,6 +126,10 @@ namespace _2D_StarWars_Fighter.enemies
                 {
                     bullet.isVisible = false;
                 }
+
+                Hit hit = new Hit(hitTextures, new Vector2( playerRef.position.X + 30,  playerRef.position.Y + 30));
+                hit.isVisible = true;
+                hitExplosions.Add(hit);
             }
 
         }
