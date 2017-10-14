@@ -44,6 +44,8 @@ namespace _2D_StarWars_Fighter
         // BigMachine
         private Texture2D stand, walk1, walk2;
         List<BigMachine> bigMachineList = new List<BigMachine>();
+        // droid
+        private Texture2D costume1, costume2, blaster_bolt;
 
         public Level3()
         {
@@ -59,6 +61,10 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            // droid
+            costume1 = Content.Load<Texture2D>("level3/costume1");
+            costume2 = Content.Load<Texture2D>("level3/costume2");
+            blaster_bolt = Content.Load<Texture2D>("level3/blaster bolt");
             // big machine
             stand = Content.Load<Texture2D>("bigmachine/stand");
             walk1 = Content.Load<Texture2D>("bigmachine/walk1");
