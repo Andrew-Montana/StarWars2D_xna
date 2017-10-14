@@ -22,7 +22,7 @@ namespace _2D_StarWars_Fighter.enemies
         public DroidDesAnimation(Texture2D[] droidDestroySpriteList, Vector2 newPosition)
         {
             currentFrame = 0;
-            counter = 8;
+            counter = 11;
             sprites = droidDestroySpriteList;
             position = newPosition;
             texture = sprites[0];
@@ -35,13 +35,13 @@ namespace _2D_StarWars_Fighter.enemies
 
             if (counter <= 0)
             {
-                currentFrame++;
                 texture = sprites[currentFrame];
+                currentFrame++;
             }
 
             if (currentFrame >= 5)
             {
-                currentFrame = -1;
+                currentFrame = 0;
                 isVisible = false;
             }
 

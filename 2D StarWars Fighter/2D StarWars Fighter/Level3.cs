@@ -52,6 +52,7 @@ namespace _2D_StarWars_Fighter
         private List<DestroyedGonkDroid> destroyedDroidList = new List<DestroyedGonkDroid>();
         private Texture2D costume5; // destoyed void texture
         private Texture2D[] droidDestroySpriteList = new Texture2D[5];
+        private List<DroidDesAnimation> spritesGonkDroidList = new List<DroidDesAnimation>();
 
 
         public Level3()
@@ -176,6 +177,11 @@ namespace _2D_StarWars_Fighter
                 gd.Update(gameTime);
             }
 
+            foreach(DroidDesAnimation dda in spritesGonkDroidList)
+            {
+                dda.Update(gameTime);
+            }
+
             // ManageWalkers();
             ManageScorpions();
             ManageExplosions();
@@ -183,6 +189,7 @@ namespace _2D_StarWars_Fighter
             HitManage();
             ManageWalkers();
             ManageDroids();
+            ManageDroidSprites();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -229,6 +236,10 @@ namespace _2D_StarWars_Fighter
             foreach (GonkDroid gd in droidList)
             {
                 gd.Draw(spriteBatch);
+            }
+            foreach (DroidDesAnimation dda in spritesGonkDroidList)
+            {
+                dda.Draw(spriteBatch);
             }
             foreach (DestroyedGonkDroid dgd in destroyedDroidList)
             {
@@ -399,6 +410,11 @@ namespace _2D_StarWars_Fighter
                 {
                     if (droidList[i].IsVisible == false)
                     {
+                        // sprites. animation of destroy
+                        DroidDesAnimation dda = new DroidDesAnimation(droidDestroySpriteList, droidList[i].position);
+                        dda.isVisible = true;
+                        spritesGonkDroidList.Add(dda);
+                        // ours droid removing and setting a destroyed texture. making ++ for count of droid death to not spawn him second time.
                         DestroyedGonkDroid destroyedDroid = new DestroyedGonkDroid(costume5, droidList[i].position) { isVisible = true };
                         destroyedDroidList.Add(destroyedDroid);
                         droidList.RemoveAt(i);
@@ -409,6 +425,20 @@ namespace _2D_StarWars_Fighter
             }
         }
 
+        private void ManageDroidSprites()
+        {
+            if (spritesGonkDroidList.Count != 0)
+            {
+                for (int i = 0; i < spritesGonkDroidList.Count; i++)
+                {
+                    if (spritesGonkDroidList[i].isVisible == false)
+                    {
+                        spritesGonkDroidList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
 
         private void WalkerCreateBullets(Walker w)
         {
