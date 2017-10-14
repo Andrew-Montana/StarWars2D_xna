@@ -46,9 +46,12 @@ namespace _2D_StarWars_Fighter
         List<BigMachine> bigMachineList = new List<BigMachine>();
         // droid
         private Texture2D costume1, costume2, blaster_bolt;
+        private List<GonkDroid> droidList = new List<GonkDroid>();
+        private int destroyedDroidsCount;
 
         public Level3()
         {
+            destroyedDroidsCount = 0;
             bulletDelay = 15;
             scorpionsDelay = 20;
             player.healthEndX = 13450;
@@ -62,9 +65,9 @@ namespace _2D_StarWars_Fighter
         public void LoadContent(ContentManager Content)
         {
             // droid
-            costume1 = Content.Load<Texture2D>("level3/costume1");
-            costume2 = Content.Load<Texture2D>("level3/costume2");
-            blaster_bolt = Content.Load<Texture2D>("level3/blaster bolt");
+            costume1 = Content.Load<Texture2D>("level3/droid/costume1");
+            costume2 = Content.Load<Texture2D>("level3/droid/costume2");
+            blaster_bolt = Content.Load<Texture2D>("level3/droid/blaster bolt");
             // big machine
             stand = Content.Load<Texture2D>("bigmachine/stand");
             walk1 = Content.Load<Texture2D>("bigmachine/walk1");
@@ -120,6 +123,7 @@ namespace _2D_StarWars_Fighter
             player.Update(gameTime);
             SpawnScorpions();
             SpawnWalkers();
+            SpawnDroids();
             foreach (Scorpion s in scorpionList)
             {
                 s.Update(gameTime);
@@ -162,6 +166,7 @@ namespace _2D_StarWars_Fighter
             WalkerManageBullets();
             HitManage();
             ManageWalkers();
+            ManageDroids();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -205,6 +210,10 @@ namespace _2D_StarWars_Fighter
             {
                 b.Draw(spriteBatch);
             }
+            foreach (GonkDroid gd in droidList)
+            {
+                gd.Draw(spriteBatch);
+            }
             // player
             player.Draw(spriteBatch);
             // scorpions
@@ -233,6 +242,16 @@ namespace _2D_StarWars_Fighter
         public Player GetPlayer()
         {
             return player;
+        }
+
+        private void SpawnDroids()
+        {
+            if (droidList.Count == 0 && destroyedDroidsCount == 0)
+            {
+                GonkDroid droid = new GonkDroid(costume1, costume2, blaster_bolt, new Vector2(7500, 680), player);
+                droid.IsVisible = true;
+                droidList.Add(droid);
+            }
         }
 
         private void SpawnWalkers()
@@ -346,6 +365,21 @@ namespace _2D_StarWars_Fighter
                     if (sandExplosionList[i].isVisible == false)
                     {
                         sandExplosionList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+        private void ManageDroids()
+        {
+            if(droidList.Count != 0)
+            {
+                for (int i = 0; i < droidList.Count; i++)
+                {
+                    if (droidList[i].IsVisible == false)
+                    {
+                        droidList.RemoveAt(i);
                         i--;
                     }
                 }
