@@ -51,6 +51,7 @@ namespace _2D_StarWars_Fighter
         //
         private List<DestroyedGonkDroid> destroyedDroidList = new List<DestroyedGonkDroid>();
         private Texture2D costume5; // destoyed void texture
+        private Texture2D[] droidDestroySpriteList = new Texture2D[5];
 
 
         public Level3()
@@ -68,6 +69,11 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            for (int i = 0; i < 5; i++)
+            {
+                Texture2D des = Content.Load<Texture2D>("level3/droidDestSprites/des" + (i+1).ToString());
+                droidDestroySpriteList[i] = des;
+            }
             costume5 = Content.Load<Texture2D>("level3/droid/costume5");
             // droid
             costume1 = Content.Load<Texture2D>("level3/droid/costume1");
