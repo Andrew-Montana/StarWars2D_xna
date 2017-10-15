@@ -54,12 +54,15 @@ namespace _2D_StarWars_Fighter
         private Texture2D[] droidDestroySpriteList = new Texture2D[5];
         private List<DroidDesAnimation> spritesGonkDroidList = new List<DroidDesAnimation>();
         // Imperial
-        private Texture2D stand1, stand2, kneel1, kneel2;
+        private Texture2D stand1, stand2, kneel1, kneel2, imperial_blaster;
         private List<Imperial> imperialList = new List<Imperial>();
+        private List<Bullet> imperialBulletList = new List<Bullet>();
+        private int impBulletCounter;
 
 
         public Level3()
         {
+            impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
             scorpionsDelay = 20;
@@ -78,6 +81,7 @@ namespace _2D_StarWars_Fighter
             kneel2 = Content.Load<Texture2D>("level3/imperial/kneel2");
             stand1 = Content.Load<Texture2D>("level3/imperial/stand1");
             stand2 = Content.Load<Texture2D>("level3/imperial/stand2");
+            imperial_blaster = Content.Load<Texture2D>("level3/imperial/costume1");
             //
             for (int i = 0; i < 5; i++)
             {
@@ -154,6 +158,35 @@ namespace _2D_StarWars_Fighter
             foreach (Imperial imp in imperialList)
             {
                 imp.Update(gameTime);
+                // imperial attack
+                if (imp.isAttack)
+                {
+                    if (impBulletCounter > 0)
+                        impBulletCounter--;
+
+                    if (impBulletCounter <= 0)
+                    {
+                        //
+                        Bullet bullet = new Bullet(imperial_blaster);
+                        bullet.isVisible = true;
+                        if (imp.spriteEffect == SpriteEffects.None)
+                        {
+                            bullet.isLeft = true;
+                            bullet.position = new Vector2(imp.position.X, imp.position.Y + (imp.texture.Height / 2) - 10);
+                        }
+                        else
+                            if (imp.spriteEffect == SpriteEffects.FlipHorizontally)
+                            {
+                                bullet.isRight = true;
+                                bullet.position = new Vector2(imp.position.X + 30, imp.position.Y + (imp.texture.Height / 2) - 10);
+                            }
+                        imperialBulletList.Add(bullet);
+                    }
+
+                    if (impBulletCounter <= 0)
+                        impBulletCounter = 35;
+
+                }
             }
 
             Collisions();
@@ -206,6 +239,7 @@ namespace _2D_StarWars_Fighter
             ManageWalkers();
             ManageDroids();
             ManageDroidSprites();
+            ManageImperialBullets();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -246,6 +280,11 @@ namespace _2D_StarWars_Fighter
             }
             // Walker Bullet
             foreach (Bullet b in walkerBulletList)
+            {
+                b.Draw(spriteBatch);
+            }
+            // Imperial Bullet
+            foreach (Bullet b in imperialBulletList)
             {
                 b.Draw(spriteBatch);
             }
@@ -584,6 +623,8 @@ namespace _2D_StarWars_Fighter
             }
         }
 
+        // imperial
+
         private void SpawnImperials()
         {
             if (imperialList.Count <= 1)
@@ -591,6 +632,51 @@ namespace _2D_StarWars_Fighter
                 Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(8000, 640), player);
                 imp.isVisible = true;
                 imperialList.Add(imp);
+            }
+        }
+
+        private void ManageImperialBullets()
+        {
+            if (imperialBulletList.Count != 0)
+            {
+                foreach (Bullet b in imperialBulletList)
+                {
+                    if (b.isLeft)
+                    {
+                        b.position.X -= b.speed;
+                    }
+                    else if (b.isRight)
+                    {
+                        b.position.X += b.speed;
+                    }
+
+                    b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
+
+                    if (b.isLeft)
+                    {
+                        if (b.position.X < 6800)
+                        {
+                            b.isVisible = false;
+                        }
+                    }
+                    else if (b.isRight)
+                    {
+                        if (b.position.X > 16000)
+                        {
+                            b.isVisible = false;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < imperialBulletList.Count; i++)
+                {
+                    if (imperialBulletList[i].isVisible == false)
+                    {
+                        imperialBulletList.RemoveAt(i);
+                        i--;
+                    }
+                }
+
             }
         }
 

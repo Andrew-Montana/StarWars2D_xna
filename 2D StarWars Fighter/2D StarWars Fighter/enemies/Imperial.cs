@@ -14,7 +14,7 @@ namespace _2D_StarWars_Fighter.enemies
     {
         public Texture2D texture, stand1, stand2, kneel1, kneel2;
         public Vector2 position;
-        public bool isVisible, isAttack, isMove, isPlayerDetected, isPlayerConfines, isLeft, isRight;
+        public bool isVisible, isAttack, isPlayerDetected, isPlayerConfines, isLeft, isRight;
         public Rectangle boundingBox;
         public SpriteEffects spriteEffect; // looking left is - None ( custom )
      //   public int confines1,// confines2; // confines of imperial movement. 8000-10000 on X for example
@@ -61,12 +61,12 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void PlayerDetection()
         {
-            if (playerRef.position.X > 8000)
+            if (playerRef.position.X > 8000 && playerRef.position.X < 12500)
             {
                 // если игрок заходит в границы 
                 isPlayerConfines = true;
             }
-            else if (playerRef.position.X < 8000)
+            else if (playerRef.position.X < 8000 || playerRef.position.X > 12500)
             {
                 // если игрок вне границ
                 isPlayerConfines = false;
@@ -126,6 +126,7 @@ namespace _2D_StarWars_Fighter.enemies
                             position.X -= (speed + 4);
                             texture = kneel1;
                             position.Y = 640;
+                            isAttack = false;
                         }
                     }
                     else if (isRight)
@@ -135,6 +136,7 @@ namespace _2D_StarWars_Fighter.enemies
                             position.X += (speed + 4);
                             texture = kneel1;
                             position.Y = 640;
+                            isAttack = false;
                         }
                     }
                 }
@@ -147,6 +149,7 @@ namespace _2D_StarWars_Fighter.enemies
                         {
                             texture = kneel2;
                             position.Y = 640;
+                            isAttack = false;
                         }
                     }
                     else if (isRight)
@@ -155,6 +158,7 @@ namespace _2D_StarWars_Fighter.enemies
                         {
                             texture = kneel2;
                             position.Y = 640;
+                            isAttack = false;
                         }
                     }
                 }
@@ -162,6 +166,7 @@ namespace _2D_StarWars_Fighter.enemies
                 if (counter <= 7)
                 {
                     texture = stand1;
+                    isAttack = true;
                     position.Y = 620;
                 }
 
@@ -179,7 +184,7 @@ namespace _2D_StarWars_Fighter.enemies
         {
             if (isAttack)
             {
-
+                //
             }
         }
 
