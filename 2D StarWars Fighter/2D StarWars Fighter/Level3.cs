@@ -187,6 +187,12 @@ namespace _2D_StarWars_Fighter
                         impBulletCounter = 35;
 
                 }
+                // COLLISION
+                if (player.boundingBox.Intersects(imp.boundingBox) && player.isAttacking)
+                {
+                    HUD.playerScore += 25;
+                    imp.isVisible = false;
+                }
             }
 
             Collisions();
@@ -240,6 +246,7 @@ namespace _2D_StarWars_Fighter
             ManageDroids();
             ManageDroidSprites();
             ManageImperialBullets();
+            ManageImperials();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -669,6 +676,38 @@ namespace _2D_StarWars_Fighter
                             b.isVisible = false;
                         }
                     }
+
+                    // COLLISIONS
+                    if(b.boundingBox.Intersects(player.boundingBox))
+                    {
+                        b.isVisible = false;
+                        Hit hit = new Hit(hitTextures, player.position);
+                        hitExplosions.Add(hit);
+
+                        if (player.isDefending == true)
+                        {
+                            // looking right and defend
+                            if (player.spriteEffect == SpriteEffects.None)
+                            {
+                                if (b.isRight)
+                                {
+                                    player.health -= 10;
+                                }
+                            }
+                            // looking left and defend
+                            if (player.spriteEffect == SpriteEffects.FlipHorizontally)
+                            {
+                                if (b.isLeft)
+                                {
+                                    player.health -= 10;
+                                }
+                            }
+                        }
+                        else if (player.isDefending == false)
+                        {
+                            player.health -= 10;
+                        }
+                    }
                 }
 
                 for (int i = 0; i < imperialBulletList.Count; i++)
@@ -680,6 +719,21 @@ namespace _2D_StarWars_Fighter
                     }
                 }
 
+            }
+        }
+
+        private void ManageImperials()
+        {
+            if (imperialList.Count != 0)
+            {
+                for (int i = 0; i < imperialList.Count; i++)
+                {
+                    if (imperialList[i].isVisible == false)
+                    {
+                        imperialList.RemoveAt(i);
+                        i--;
+                    }
+                }
             }
         }
 
