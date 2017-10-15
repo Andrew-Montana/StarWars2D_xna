@@ -82,6 +82,7 @@
     <Compile Include="enemies\DroidDesAnimation.cs" />
     <Compile Include="enemies\GonkDroid.cs" />
     <Compile Include="enemies\Hit.cs" />
+    <Compile Include="enemies\Imperial.cs" />
     <Compile Include="enemies\SandExplosion.cs" />
     <Compile Include="enemies\Scorpion.cs" />
     <Compile Include="enemies\Walker.cs" />
