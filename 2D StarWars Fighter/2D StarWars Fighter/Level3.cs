@@ -54,10 +54,11 @@ namespace _2D_StarWars_Fighter
         private Texture2D[] droidDestroySpriteList = new Texture2D[5];
         private List<DroidDesAnimation> spritesGonkDroidList = new List<DroidDesAnimation>();
         // Imperial
-        private Texture2D stand1, stand2, kneel1, kneel2, imperial_blaster;
+        private Texture2D stand1, stand2, kneel1, kneel2, imperial_blaster, die1, die2, die3;
         private List<Imperial> imperialList = new List<Imperial>();
         private List<Bullet> imperialBulletList = new List<Bullet>();
         private int impBulletCounter;
+        private List<ImperialDeath> imperialDeathList = new List<ImperialDeath>();
 
 
         public Level3()
@@ -77,6 +78,9 @@ namespace _2D_StarWars_Fighter
         public void LoadContent(ContentManager Content)
         {
             // imperial
+            die1 = Content.Load<Texture2D>("level3/imperial/die1");
+            die2 = Content.Load<Texture2D>("level3/imperial/die2");
+            die3 = Content.Load<Texture2D>("level3/imperial/die3");
             kneel1 = Content.Load<Texture2D>("level3/imperial/kneel1");
             kneel2 = Content.Load<Texture2D>("level3/imperial/kneel2");
             stand1 = Content.Load<Texture2D>("level3/imperial/stand1");
@@ -191,6 +195,11 @@ namespace _2D_StarWars_Fighter
                 if (player.boundingBox.Intersects(imp.boundingBox) && player.isAttacking)
                 {
                     HUD.playerScore += 25;
+                    //
+                    ImperialDeath id = new ImperialDeath(die1, die2, die3, new Vector2(imp.position.X, imp.position.Y + 45), imp.spriteEffect);
+                    id.isVisible = true;
+                    imperialDeathList.Add(id);
+                    //
                     imp.isVisible = false;
                 }
             }
@@ -237,6 +246,12 @@ namespace _2D_StarWars_Fighter
                 dda.Update(gameTime);
             }
 
+            // Imperial Death Animation
+            foreach (ImperialDeath id in imperialDeathList)
+            {
+                id.Update(gameTime);
+            }
+
             // ManageWalkers();
             ManageScorpions();
             ManageExplosions();
@@ -247,6 +262,7 @@ namespace _2D_StarWars_Fighter
             ManageDroidSprites();
             ManageImperialBullets();
             ManageImperials();
+            ManageImperialDeaths();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -333,6 +349,11 @@ namespace _2D_StarWars_Fighter
             foreach (Level2Explosions explosion in explosionsList)
             {
                 explosion.Draw(spriteBatch);
+            }
+            // Imperial Death Animation
+            foreach (ImperialDeath id in imperialDeathList)
+            {
+                id.Draw(spriteBatch);
             }
             hud.Draw(spriteBatch);
         }
@@ -758,6 +779,21 @@ namespace _2D_StarWars_Fighter
                     if (imperialList[i].isVisible == false)
                     {
                         imperialList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+        private void ManageImperialDeaths()
+        {
+            if (imperialDeathList.Count != 0)
+            {
+                for (int i = 0; i < imperialDeathList.Count; i++)
+                {
+                    if (imperialDeathList[i].isVisible == false)
+                    {
+                        imperialDeathList.RemoveAt(i);
                         i--;
                     }
                 }
