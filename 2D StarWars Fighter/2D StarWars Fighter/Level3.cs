@@ -627,13 +627,16 @@ namespace _2D_StarWars_Fighter
 
         private void SpawnImperials()
         {
-            if (imperialList.Count <= 1)
+            Random rand = new Random();
+            if (imperialList.Count <= 5)
             {
-                Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(8000, 640), player);
+                Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(rand.Next(8250, 12200), 640), player);
                 imp.isVisible = true;
                 imperialList.Add(imp);
             }
         }
+
+  
 
         private void ManageImperialBullets()
         {

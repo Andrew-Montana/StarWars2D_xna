@@ -38,6 +38,7 @@ namespace _2D_StarWars_Fighter.enemies
             position = newPosition;
             playerRef = player;
             spriteEffect = SpriteEffects.None;
+            boundingBox = new Rectangle((int)position.X, (int)position.Y, (int)texture.Width, texture.Height);
         //    confines1 = 8000;
           //  confines2 = 10000;
 
@@ -45,11 +46,12 @@ namespace _2D_StarWars_Fighter.enemies
 
         public void Update(GameTime gameTime)
         {
+            boundingBox = new Rectangle((int)position.X, (int)position.Y, (int)texture.Width, texture.Height);
             PlayerDetection();
             CheckDistance();
             Movement();
           //  Rotate();
-            Attack();
+      //      Attack();
         }
 
         public void Draw(SpriteBatch spriteBatch)
