@@ -635,9 +635,36 @@ namespace _2D_StarWars_Fighter
         private void SpawnImperials()
         {
             Random rand = new Random();
-            if (imperialList.Count <= 5)
+            if (imperialList.Count <= 6)
             {
-                Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(rand.Next(8250, 12200), 640), player);
+                int value = rand.Next(8250, 12200);
+                Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(value, 640), player);
+                // <--- player ---> spawn enemies
+                if (value > player.position.X)
+                {
+                    if ((value - player.position.X) <= 900)
+                    {
+                        imp.position.X = value + 750;
+                        if ((value + 750) >= 12200)
+                        {
+                            imp.position.X = 12200;
+                        }
+                    }
+                }
+                //
+                if (player.position.X > value)
+                {
+                    if ((player.position.X - value) <= 900)
+                    {
+                        imp.position.X = value - 750;
+                        if ((value - 750) <= 8250)
+                        {
+                            imp.position.X = 8250;
+                        }
+                    }
+                }
+                //
+
                 imp.isVisible = true;
                 imperialList.Add(imp);
             }
