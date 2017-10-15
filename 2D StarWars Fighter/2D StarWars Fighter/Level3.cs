@@ -53,6 +53,9 @@ namespace _2D_StarWars_Fighter
         private Texture2D costume5; // destoyed void texture
         private Texture2D[] droidDestroySpriteList = new Texture2D[5];
         private List<DroidDesAnimation> spritesGonkDroidList = new List<DroidDesAnimation>();
+        // Imperial
+        private Texture2D stand1, stand2, kneel1, kneel2;
+        private List<Imperial> imperialList = new List<Imperial>();
 
 
         public Level3()
@@ -70,6 +73,12 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            // imperial
+            kneel1 = Content.Load<Texture2D>("level3/imperial/kneel1");
+            kneel2 = Content.Load<Texture2D>("level3/imperial/kneel2");
+            stand1 = Content.Load<Texture2D>("level3/imperial/stand1");
+            stand2 = Content.Load<Texture2D>("level3/imperial/stand2");
+            //
             for (int i = 0; i < 5; i++)
             {
                 Texture2D des = Content.Load<Texture2D>("level3/droidDestSprites/des" + (i+1).ToString());
@@ -135,9 +144,16 @@ namespace _2D_StarWars_Fighter
             SpawnScorpions();
             SpawnWalkers();
             SpawnDroids();
+            SpawnImperials();
             foreach (Scorpion s in scorpionList)
             {
                 s.Update(gameTime);
+            }
+
+            // immperial
+            foreach (Imperial imp in imperialList)
+            {
+                imp.Update(gameTime);
             }
 
             Collisions();
@@ -247,6 +263,11 @@ namespace _2D_StarWars_Fighter
             }
             // player
             player.Draw(spriteBatch);
+            //imperials
+            foreach (Imperial imp in imperialList)
+            {
+                imp.Draw(spriteBatch);
+            }
             // scorpions
             foreach (Scorpion s in scorpionList)
             {
@@ -560,6 +581,16 @@ namespace _2D_StarWars_Fighter
                         i--;
                     }
                 }
+            }
+        }
+
+        private void SpawnImperials()
+        {
+            if (imperialList.Count <= 1)
+            {
+                Imperial imp = new Imperial(stand1, stand2, kneel1, kneel2, new Vector2(8000, 640), player);
+                imp.isVisible = true;
+                imperialList.Add(imp);
             }
         }
 
