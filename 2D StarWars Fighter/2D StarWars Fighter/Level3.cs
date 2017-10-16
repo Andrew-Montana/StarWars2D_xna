@@ -59,6 +59,10 @@ namespace _2D_StarWars_Fighter
         private List<Bullet> imperialBulletList = new List<Bullet>();
         private int impBulletCounter;
         private List<ImperialDeath> imperialDeathList = new List<ImperialDeath>();
+        // boss
+        public Texture2D[] boss_costume = new Texture2D[6];
+        public Texture2D[] boss_force = new Texture2D[8];
+        public Texture2D[] boss_lighsaber = new Texture2D[6];
 
 
         public Level3()
@@ -77,6 +81,19 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            // boss
+            for (int i = 0; i < boss_costume.Length; i++)
+            {
+                boss_costume[i] = Content.Load<Texture2D>("level3/boss/costume" + (i + 1).ToString());
+            }
+            for (int i = 0; i < boss_force.Length; i++)
+            {
+                boss_costume[i] = Content.Load<Texture2D>("level3/boss/force" + (i + 1).ToString());
+            }
+            for (int i = 0; i < boss_lighsaber.Length; i++)
+            {
+                boss_costume[i] = Content.Load<Texture2D>("level3/boss/light saber throw" + (i + 1).ToString());
+            }
             // imperial
             die1 = Content.Load<Texture2D>("level3/imperial/die1");
             die2 = Content.Load<Texture2D>("level3/imperial/die2");
