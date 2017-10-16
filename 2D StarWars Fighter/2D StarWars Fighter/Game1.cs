@@ -174,8 +174,12 @@ namespace _2D_StarWars_Fighter
         protected override void Update(GameTime gameTime)
         {
            // if (gameState != State.Level2 && gameState != State.Level2EndScene) // delete it later
-            if(gameState != State.Level3)
+            if (gameState == State.Gameover) // delete it later
+                gameState = State.Gameover; // delete it later
+            else if (gameState != State.Level3) // delete it later
                 gameState = State.Level3; // delete it later
+
+
             #region 1 Level Sounds
             if (HUD.playerScore >= 35 && isTherePlayerSound && gameState == State.Level1)
             {
@@ -380,7 +384,7 @@ namespace _2D_StarWars_Fighter
                                     {
                                         item.isVisible = false;
                                     }
-                                    gameState = State.Level1;
+                                    gameState = State.Level3; // back 1 level later
                                     MediaPlayer.Play(sm.bgMusic);
                                 //    SoundManager.musicVolume = 1.0f;
                                 //    MediaPlayer.Volume = SoundManager.musicVolume;

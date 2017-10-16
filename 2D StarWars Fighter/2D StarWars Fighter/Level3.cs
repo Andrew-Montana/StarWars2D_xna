@@ -277,6 +277,7 @@ namespace _2D_StarWars_Fighter
             }
             //
             BigMachineSpawn();
+            GameOver();
 
         }
 
@@ -842,6 +843,32 @@ namespace _2D_StarWars_Fighter
                 bigMachineList.Add(bm);
                 bigMachineList.Add(bm2);
             }
+        }
+
+        private void GameOver()
+        {
+            if (player.health <= 0)
+            {
+                Game1.menuCommand = "GameOver";
+                ResetStates();
+            }
+        }
+
+        private void ResetStates()
+        {
+            player.health = 200;
+            destroyedDroidsCount = 0;
+            player.position = new Vector2(300, 720);
+            scorpionList.Clear();
+            imperialBulletList.Clear();
+            imperialList.Clear();
+            walkerBulletList.Clear();
+            walkerList.Clear();
+            destroyedDroidList.Clear();
+            droidList.Clear();
+            bigMachineList.Clear();
+            player.isEndPosition = false;
+
         }
     }
 }
