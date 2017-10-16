@@ -49,7 +49,10 @@ namespace _2D_StarWars_Fighter
                     centre = new Vector2(player.position.X + (90 / 2) - 440, 0);
                 // Center of the screen is end view
                 if (player.position.X >= 13810)
+                {
+                    player.isEndPosition = true;
                     centre = new Vector2(13400, 0);
+                }
                 transform = Matrix.CreateScale(new Vector3(1, 1, 0)) * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
             }
             #endregion

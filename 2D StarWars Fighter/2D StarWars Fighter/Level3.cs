@@ -63,10 +63,12 @@ namespace _2D_StarWars_Fighter
         public Texture2D[] boss_costume = new Texture2D[6];
         public Texture2D[] boss_force = new Texture2D[8];
         public Texture2D[] boss_lighsaber = new Texture2D[6];
+        public List<Boss3Level> bossList = new List<Boss3Level>();
 
 
         public Level3()
         {
+            player.health = 600;
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
@@ -88,11 +90,11 @@ namespace _2D_StarWars_Fighter
             }
             for (int i = 0; i < boss_force.Length; i++)
             {
-                boss_costume[i] = Content.Load<Texture2D>("level3/boss/force" + (i + 1).ToString());
+                boss_force[i] = Content.Load<Texture2D>("level3/boss/force" + (i + 1).ToString());
             }
             for (int i = 0; i < boss_lighsaber.Length; i++)
             {
-                boss_costume[i] = Content.Load<Texture2D>("level3/boss/light saber throw" + (i + 1).ToString());
+                boss_lighsaber[i] = Content.Load<Texture2D>("level3/boss/light saber throw" + (i + 1).ToString());
             }
             // imperial
             die1 = Content.Load<Texture2D>("level3/imperial/die1");
@@ -170,6 +172,7 @@ namespace _2D_StarWars_Fighter
             SpawnWalkers();
             SpawnDroids();
             SpawnImperials();
+            SpawnBoss();
             foreach (Scorpion s in scorpionList)
             {
                 s.Update(gameTime);
@@ -269,6 +272,12 @@ namespace _2D_StarWars_Fighter
                 id.Update(gameTime);
             }
 
+            // Boss
+            foreach (Boss3Level b in bossList)
+            {
+                b.Update(gameTime);
+            }
+
             // ManageWalkers();
             ManageScorpions();
             ManageExplosions();
@@ -280,6 +289,7 @@ namespace _2D_StarWars_Fighter
             ManageImperialBullets();
             ManageImperials();
             ManageImperialDeaths();
+            ManageBoss();
 
             foreach (Level2Explosions explosion in explosionsList)
             {
@@ -372,6 +382,11 @@ namespace _2D_StarWars_Fighter
             foreach (ImperialDeath id in imperialDeathList)
             {
                 id.Draw(spriteBatch);
+            }
+
+            foreach (Boss3Level b in bossList)
+            {
+                b.Draw(spriteBatch);
             }
             hud.Draw(spriteBatch);
         }
@@ -800,6 +815,11 @@ namespace _2D_StarWars_Fighter
                         i--;
                     }
                 }
+                //
+                if (player.isEndPosition)
+                {
+                    imperialList.Clear();
+                }
             }
         }
 
@@ -862,6 +882,34 @@ namespace _2D_StarWars_Fighter
             }
         }
 
+        // boss
+
+        private void SpawnBoss()
+        {
+            // Если игрок достиг конца и при этом в листе босса количество элементов равняется нулю = создаем босса.
+            if (player.isEndPosition == true && bossList.Count == 0)
+            {
+                Boss3Level boss = new Boss3Level(boss_costume, boss_force, boss_lighsaber);
+                bossList.Add(boss);
+                boss.isVisible = true;
+            }
+        }
+
+        private void ManageBoss()
+        {
+            if (bossList.Count != 0)
+            {
+                for (int i = 0; i < bossList.Count; i++)
+                {
+                    if (bossList[i].isVisible == false)
+                    {
+                        bossList.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
         private void GameOver()
         {
             if (player.health <= 0)
@@ -873,7 +921,7 @@ namespace _2D_StarWars_Fighter
 
         private void ResetStates()
         {
-            player.health = 200;
+            player.health = 600;
             destroyedDroidsCount = 0;
             player.position = new Vector2(300, 720);
             scorpionList.Clear();
@@ -884,6 +932,7 @@ namespace _2D_StarWars_Fighter
             destroyedDroidList.Clear();
             droidList.Clear();
             bigMachineList.Clear();
+            bossList.Clear();
             player.isEndPosition = false;
 
         }

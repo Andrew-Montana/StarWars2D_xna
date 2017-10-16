@@ -15,20 +15,24 @@ namespace _2D_StarWars_Fighter.enemies
         public Texture2D texture;
         public Vector2 position;
         public SpriteEffects spriteEffect;
+        public Rectangle boundingBox;
         //
         public Texture2D[] costume = new Texture2D[6];
         public Texture2D[] force = new Texture2D[8];
         public Texture2D[] lighsaber = new Texture2D[6];
         //
         public bool isEntered;
+        public bool isVisible;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber)
         {
-            position = new Vector2(14780, 640);
+            spriteEffect = SpriteEffects.None; // Custom. Is looking left
+            position = new Vector2(14920, 620);
             isEntered = false;
             this.costume = costume;
             this.force = force;
             this.lighsaber = lighsaber;
+            texture = costume[0];
         }
 
         public void Update(GameTime gameTime)
