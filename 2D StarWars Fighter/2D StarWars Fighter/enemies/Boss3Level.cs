@@ -16,6 +16,7 @@ namespace _2D_StarWars_Fighter.enemies
         public Vector2 position;
         public SpriteEffects spriteEffect;
         public Rectangle boundingBox;
+        public int health;
         //
         public Texture2D[] costume = new Texture2D[6];
         public Texture2D[] force = new Texture2D[8];
@@ -23,9 +24,17 @@ namespace _2D_StarWars_Fighter.enemies
         //
         public bool isEntered;
         public bool isVisible;
+        //
+        public int stickout_counter, stickout_currentFrame;
+        public bool isStickout, flag1;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber)
         {
+            flag1 = false;
+            stickout_currentFrame = 0;
+            isStickout = true;
+            stickout_counter = 8;
+            health = 1000;
             spriteEffect = SpriteEffects.None; // Custom. Is looking left
             position = new Vector2(14920, 620);
             isEntered = false;
@@ -38,8 +47,6 @@ namespace _2D_StarWars_Fighter.enemies
         public void Update(GameTime gameTime)
         {
             EnterArea();
-
-            Death();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -51,7 +58,35 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void StickOut()
         {
+            if (isStickout)
+            {
+                if (stickout_counter > 0)
+                    stickout_counter--;
 
+                if (stickout_counter <= 0)
+                {
+                    texture = costume[stickout_currentFrame];
+                    if (stickout_currentFrame == 1)
+                        position.X -= 40;
+                    if (stickout_currentFrame == 3)
+                        position.X -= 7;
+                    if (stickout_currentFrame == 4)
+                        position.X -= 12;
+                    if (stickout_currentFrame == 5)
+                        position.X += 12;
+                    stickout_currentFrame++;
+                }
+
+                if (stickout_currentFrame >= 6)
+                {
+                    stickout_currentFrame = 0;
+                    isStickout = false;
+                    flag1 = true;
+                }
+
+                if (stickout_counter <= 0)
+                    stickout_counter = 8;
+            }
         }
 
         private void Hide()
@@ -75,13 +110,6 @@ namespace _2D_StarWars_Fighter.enemies
         {
 
         }
-
-        // Death
-
-        private void Death()
-        {
-
-        }
         
         // Intro
 
@@ -94,6 +122,10 @@ namespace _2D_StarWars_Fighter.enemies
                 {
                     isEntered = true;
                 }
+            }
+            else if (isEntered && flag1 == false)
+            {
+                    StickOut();
             }
         }
 

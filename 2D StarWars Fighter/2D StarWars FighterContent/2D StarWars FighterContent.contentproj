@@ -892,36 +892,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="level3\boss\costume1.png">
-      <Name>costume1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="level3\boss\costume2.png">
-      <Name>costume2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="level3\boss\costume3.png">
-      <Name>costume3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="level3\boss\costume4.png">
-      <Name>costume4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="level3\boss\costume5.png">
-      <Name>costume5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="level3\boss\costume6.png">
-      <Name>costume6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="level3\boss\die1.png">
       <Name>die1</Name>
       <Importer>TextureImporter</Importer>
@@ -1024,6 +994,38 @@
     </Compile>
     <Compile Include="level3\boss\light saber throw6.png">
       <Name>light saber throw6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="level3\boss\costume1.png">
+      <Name>costume1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="level3\boss\costume2.png">
+      <Name>costume2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="level3\boss\costume3.png">
+      <Name>costume3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="level3\boss\costume4.png">
+      <Name>costume4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="level3\boss\costume5.png">
+      <Name>costume5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="level3\boss\costume6.png">
+      <Name>costume6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

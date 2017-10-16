@@ -68,7 +68,8 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
-            player.health = 600;
+            player.position.X = 13000; // delete later
+            player.health = 600; // delete later
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
