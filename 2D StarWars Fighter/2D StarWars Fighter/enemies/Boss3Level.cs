@@ -28,7 +28,7 @@ namespace _2D_StarWars_Fighter.enemies
         public int stickout_counter, stickout_currentFrame;
         public bool isStickout, flag1;
         //
-        public bool isThrow;
+     //   public bool isThrow;
         public int throwCounter;
         public int throw_currentFrame;
         public Texture2D throwTexture;
@@ -36,15 +36,23 @@ namespace _2D_StarWars_Fighter.enemies
         public bool isAttack;
         //
         public int step;
+        //
+        public Player player_ref;
+        // 
+        public int push_counter;
+        public int push_frame;
 
-        public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture)
+        public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture, Player player)
         {
+            push_frame = 0;
+            push_counter = 30;
+            player_ref = player;
             step = 0;
             isAttack = false;
             this.throwTexture = throwTexture;
             throw_currentFrame = 0;
             throwCounter = 13;
-            isThrow = true;
+        //    isThrow = true;
             flag1 = false;
             stickout_currentFrame = 0;
             isStickout = true;
@@ -76,6 +84,7 @@ namespace _2D_StarWars_Fighter.enemies
 
                 case 1:
                     {
+                        if(lightsaberList.Count == 0)
                         Push();
                         break;
                     }
@@ -88,18 +97,31 @@ namespace _2D_StarWars_Fighter.enemies
 
                 case 3:
                     {
-                        Throw();
+                        Push();
                         break;
                     }
 
                 case 4:
                     {
-                        Push();
+                        Throw(); // ok
                         break;
                     }
                 case 5:
                     {
-                        Teleport();
+                        if(lightsaberList.Count == 0)
+                        Throw(10);
+                        break;
+                    }
+
+                case 6:
+                    {
+                        if (lightsaberList.Count == 0)
+                            Throw(10);
+                        break;
+                    }
+                case 7:
+                    {
+                        Push();
                         break;
                     }
             }
@@ -164,8 +186,8 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void Throw()
         {
-            if (isThrow == true)
-            {
+           // if (isThrow == true)
+          //  {
                 isAttack = true;
 
                 if (throwCounter > 0)
@@ -193,7 +215,7 @@ namespace _2D_StarWars_Fighter.enemies
                     throw_currentFrame = 0;
                     texture = force[0];
                     position.X += 115;
-                    isThrow = false;
+                //    isThrow = false;
                     Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
                     l.isVisible = true;
                     lightsaberList.Add(l);
@@ -205,14 +227,81 @@ namespace _2D_StarWars_Fighter.enemies
 
                 if (throwCounter <= 0)
                     throwCounter = 13;
+           // }
+        }
+
+        private void Throw(int flyspeed)
+        { // speed must be > 8
+            // if (isThrow == true)
+            //  {
+            isAttack = true;
+
+            if (throwCounter > 0)
+                throwCounter--;
+
+            //# if standing right
+            if (throwCounter <= 0)
+            {
+                texture = lighsaber[throw_currentFrame];
+                if (throw_currentFrame == 0)
+                    position.X -= 22;
+                else if (throw_currentFrame == 1)
+                    position.X -= 40;
+                else if (throw_currentFrame == 2)
+                    position.X -= 29;
+                else if (throw_currentFrame == 3)
+                    position.X -= 1;
+                //    else if (throw_currentFrame == 4)
+                //    position.X += 1;
+                throw_currentFrame++;
             }
+
+            if (throw_currentFrame >= 4)
+            {
+                throw_currentFrame = 0;
+                texture = force[0];
+                position.X += 115;
+                //    isThrow = false;
+                Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
+                l.isVisible = true;
+                l.speed = flyspeed;
+                lightsaberList.Add(l);
+                isAttack = false;
+                step++;
+            }
+
+            //#
+
+            if (throwCounter <= 0)
+                throwCounter = 13;
+            // }
         }
 
         // Force
 
         private void Push()
         {
+            if (push_counter > 0)
+                push_counter--;
 
+            if (push_counter <= 0)
+            {
+                texture = force[push_frame];
+                push_frame++;
+                if (position.X >= 14000)
+                    player_ref.position.X -= 38 * push_frame;
+                if (position.X <= 13900)
+                    player_ref.position.X += 38 * push_frame;
+            }
+
+            if (push_frame >= 8)
+            {
+                push_frame = 0;
+                step++;
+            }
+
+            if (push_counter <= 0)
+                push_counter = 30;
         }
 
         private void Teleport()

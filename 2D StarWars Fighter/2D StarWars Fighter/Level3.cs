@@ -892,7 +892,7 @@ namespace _2D_StarWars_Fighter
             // Если игрок достиг конца и при этом в листе босса количество элементов равняется нулю = создаем босса.
             if (player.isEndPosition == true && bossList.Count == 0)
             {
-                Boss3Level boss = new Boss3Level(boss_costume, boss_force, boss_lighsaber, throwTexture);
+                Boss3Level boss = new Boss3Level(boss_costume, boss_force, boss_lighsaber, throwTexture, player);
                 bossList.Add(boss);
                 boss.isVisible = true;
             }
