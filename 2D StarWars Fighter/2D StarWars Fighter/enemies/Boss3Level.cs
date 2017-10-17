@@ -124,6 +124,11 @@ namespace _2D_StarWars_Fighter.enemies
                         Push();
                         break;
                     }
+                case 8:
+                    {
+                        Teleport();
+                        break;
+                    }
             }
 
             //
@@ -194,36 +199,57 @@ namespace _2D_StarWars_Fighter.enemies
                     throwCounter--;
 
                 //# if standing right
-                if (throwCounter <= 0)
+                if (spriteEffect == SpriteEffects.None)
                 {
-                    texture = lighsaber[throw_currentFrame];
-                    if (throw_currentFrame == 0)
-                        position.X -= 22;
-                    else if (throw_currentFrame == 1)
-                        position.X -= 40;
-                    else if (throw_currentFrame == 2)
-                        position.X -= 29;
-                    else if (throw_currentFrame == 3)
-                        position.X -= 1;
-                //    else if (throw_currentFrame == 4)
-                    //    position.X += 1;
-                    throw_currentFrame++;
-                }
+                    if (throwCounter <= 0)
+                    {
+                        texture = lighsaber[throw_currentFrame];
+                        if (throw_currentFrame == 0)
+                            position.X -= 22;
+                        else if (throw_currentFrame == 1)
+                            position.X -= 40;
+                        else if (throw_currentFrame == 2)
+                            position.X -= 29;
+                        else if (throw_currentFrame == 3)
+                            position.X -= 1;
+                        //    else if (throw_currentFrame == 4)
+                        //    position.X += 1;
+                        throw_currentFrame++;
+                    }
 
-                if (throw_currentFrame >= 4)
+                    if (throw_currentFrame >= 4)
+                    {
+                        throw_currentFrame = 0;
+                        texture = force[0];
+                        position.X += 115;
+                        //    isThrow = false;
+                        Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
+                        l.isVisible = true;
+                        lightsaberList.Add(l);
+                        isAttack = false;
+                        step++;
+                    }
+                } // #
+                else if (spriteEffect == SpriteEffects.FlipHorizontally)
                 {
-                    throw_currentFrame = 0;
-                    texture = force[0];
-                    position.X += 115;
-                //    isThrow = false;
-                    Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
-                    l.isVisible = true;
-                    lightsaberList.Add(l);
-                    isAttack = false;
-                    step++;
-                }
+                    if (throwCounter <= 0)
+                    {
+                        texture = lighsaber[throw_currentFrame];
+                        throw_currentFrame++;
+                    }
 
-                //#
+                    if (throw_currentFrame >= 4)
+                    {
+                        throw_currentFrame = 0;
+                        texture = force[0];
+                        Lightsaber l = new Lightsaber(throwTexture, new Vector2(13500, 655), new Vector2(14500, 655)); // ????
+                        l.isVisible = true;
+                        lightsaberList.Add(l);
+                        isAttack = false;
+                        step++;
+                    }
+                }
+                
 
                 if (throwCounter <= 0)
                     throwCounter = 13;
@@ -240,34 +266,57 @@ namespace _2D_StarWars_Fighter.enemies
                 throwCounter--;
 
             //# if standing right
-            if (throwCounter <= 0)
+            if (spriteEffect == SpriteEffects.None)
             {
-                texture = lighsaber[throw_currentFrame];
-                if (throw_currentFrame == 0)
-                    position.X -= 22;
-                else if (throw_currentFrame == 1)
-                    position.X -= 40;
-                else if (throw_currentFrame == 2)
-                    position.X -= 29;
-                else if (throw_currentFrame == 3)
-                    position.X -= 1;
-                //    else if (throw_currentFrame == 4)
-                //    position.X += 1;
-                throw_currentFrame++;
-            }
+                if (throwCounter <= 0)
+                {
+                    texture = lighsaber[throw_currentFrame];
+                    if (throw_currentFrame == 0)
+                        position.X -= 22;
+                    else if (throw_currentFrame == 1)
+                        position.X -= 40;
+                    else if (throw_currentFrame == 2)
+                        position.X -= 29;
+                    else if (throw_currentFrame == 3)
+                        position.X -= 1;
+                    //    else if (throw_currentFrame == 4)
+                    //    position.X += 1;
+                    throw_currentFrame++;
+                }
 
-            if (throw_currentFrame >= 4)
+                if (throw_currentFrame >= 4)
+                {
+                    throw_currentFrame = 0;
+                    texture = force[0];
+                    position.X += 115;
+                    //    isThrow = false;
+                    Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
+                    l.isVisible = true;
+                    l.speed = flyspeed;
+                    lightsaberList.Add(l);
+                    isAttack = false;
+                    step++;
+                }
+            } // #
+            else if (spriteEffect == SpriteEffects.FlipHorizontally)
             {
-                throw_currentFrame = 0;
-                texture = force[0];
-                position.X += 115;
-                //    isThrow = false;
-                Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
-                l.isVisible = true;
-                l.speed = flyspeed;
-                lightsaberList.Add(l);
-                isAttack = false;
-                step++;
+                if (throwCounter <= 0)
+                {
+                    texture = lighsaber[throw_currentFrame];
+                    throw_currentFrame++;
+                }
+
+                if (throw_currentFrame >= 4)
+                {
+                    throw_currentFrame = 0;
+                    texture = force[0];
+                    Lightsaber l = new Lightsaber(throwTexture, new Vector2(13500, 655), new Vector2(14500, 655)); // ????
+                    l.isVisible = true;
+                    l.speed = flyspeed;
+                    lightsaberList.Add(l);
+                    isAttack = false;
+                    step++;
+                }
             }
 
             //#
@@ -284,14 +333,43 @@ namespace _2D_StarWars_Fighter.enemies
             if (push_counter > 0)
                 push_counter--;
 
-            if (push_counter <= 0)
+            if (spriteEffect == SpriteEffects.None)
             {
-                texture = force[push_frame];
-                push_frame++;
-                if (position.X >= 14000)
-                    player_ref.position.X -= 38 * push_frame;
-                if (position.X <= 13900)
-                    player_ref.position.X += 38 * push_frame;
+                if (push_counter <= 0)
+                {
+                    texture = force[push_frame];
+                    //
+                    if (push_frame == 1)
+                        position.X -= 17;
+                    if (push_frame == 3)
+                        position.X += 5;
+                    if (push_frame == 4)
+                        position.X -= 15;
+                    if (push_frame == 5)
+                        position.X -= 32;
+                    if (push_frame == 6)
+                        position.X += 43;
+                    if (push_frame == 7)
+                        position.X += 17;
+                    //
+                    push_frame++;
+                    if (position.X >= 14000)
+                        player_ref.position.X -= 38 * push_frame;
+                    if (position.X <= 13900)
+                        player_ref.position.X += 38 * push_frame;
+                }
+            }
+            else if (spriteEffect == SpriteEffects.FlipHorizontally)
+            {
+                if (push_counter <= 0)
+                {
+                    texture = force[push_frame];
+                    push_frame++;
+                    if (position.X >= 14000)
+                        player_ref.position.X -= 38 * push_frame;
+                    if (position.X <= 13900)
+                        player_ref.position.X += 38 * push_frame;
+                }
             }
 
             if (push_frame >= 8)
@@ -306,7 +384,18 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void Teleport()
         {
-
+            if (spriteEffect == SpriteEffects.None)
+            {
+                position.X = 13400;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+                step = 0;
+            }
+            else if (spriteEffect == SpriteEffects.FlipHorizontally)
+            {
+                position = new Vector2(14580, 620);
+                spriteEffect = SpriteEffects.None;
+                step = 0;
+            }
         }
         
         // Intro
@@ -339,6 +428,7 @@ namespace _2D_StarWars_Fighter.enemies
                         lightsaberList.RemoveAt(i);
                         i--;
                         texture = costume[5];
+                        if(spriteEffect == SpriteEffects.None)
                         position.X -= 23;
                     }
                 }
