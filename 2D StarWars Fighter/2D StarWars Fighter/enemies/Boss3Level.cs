@@ -77,6 +77,7 @@ namespace _2D_StarWars_Fighter.enemies
                         // Start Fight
                         if (flag1 == true)
                         {
+                            if (lightsaberList.Count == 0)
                             Throw();
                         }
                         break;
@@ -91,6 +92,7 @@ namespace _2D_StarWars_Fighter.enemies
 
                 case 2:
                     {
+                        if (lightsaberList.Count == 0)
                         Throw();
                         break;
                     }
@@ -127,8 +129,53 @@ namespace _2D_StarWars_Fighter.enemies
                 case 8:
                     {
                         Teleport();
+                        step++;
                         break;
                     }
+                case 9:
+                    {
+                        if (lightsaberList.Count == 0)
+                        Throw(12);
+                        break;
+                    }
+                case 10:
+                    {
+                        if (lightsaberList.Count == 0)
+                        Throw(14);
+                        break;
+                    }
+                case 11:
+                    {
+                        if (lightsaberList.Count == 0)
+                        Teleport();
+                        step++;
+                        break;
+                    }
+                case 12:
+                    {
+                        if (lightsaberList.Count == 0)
+                        Throw(13);
+                        break;
+                    }
+                case 13:
+                    {
+                        Push();
+                        break;
+                    }
+                case 14:
+                    {
+                        if (lightsaberList.Count == 0)
+                        Throw(16);
+                        break;
+                    }
+                case 15:
+                    {
+                        Teleport();
+                        step = 0;
+                        break;
+                    }
+
+
             }
 
             //
@@ -388,13 +435,13 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 position.X = 13400;
                 spriteEffect = SpriteEffects.FlipHorizontally;
-                step = 0;
+             //   step = 0;
             }
             else if (spriteEffect == SpriteEffects.FlipHorizontally)
             {
                 position = new Vector2(14580, 620);
                 spriteEffect = SpriteEffects.None;
-                step = 0;
+             //   step = 0;
             }
         }
         
