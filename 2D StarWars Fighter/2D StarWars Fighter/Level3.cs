@@ -64,6 +64,7 @@ namespace _2D_StarWars_Fighter
         public Texture2D[] boss_force = new Texture2D[8];
         public Texture2D[] boss_lighsaber = new Texture2D[4];
         public List<Boss3Level> bossList = new List<Boss3Level>();
+        public Texture2D throwTexture;
 
 
         public Level3()
@@ -84,6 +85,7 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            throwTexture = Content.Load<Texture2D>("level3/boss/lightsaber");
             // boss
             for (int i = 0; i < boss_costume.Length; i++)
             {
@@ -890,7 +892,7 @@ namespace _2D_StarWars_Fighter
             // Если игрок достиг конца и при этом в листе босса количество элементов равняется нулю = создаем босса.
             if (player.isEndPosition == true && bossList.Count == 0)
             {
-                Boss3Level boss = new Boss3Level(boss_costume, boss_force, boss_lighsaber);
+                Boss3Level boss = new Boss3Level(boss_costume, boss_force, boss_lighsaber, throwTexture);
                 bossList.Add(boss);
                 boss.isVisible = true;
             }

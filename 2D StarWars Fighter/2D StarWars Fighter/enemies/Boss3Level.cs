@@ -31,11 +31,14 @@ namespace _2D_StarWars_Fighter.enemies
         public bool isThrow;
         public int throwCounter;
         public int throw_currentFrame;
+        public Texture2D throwTexture;
+        public List<Lightsaber> lightsaberList = new List<Lightsaber>();
 
-        public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber)
+        public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture)
         {
+            this.throwTexture = throwTexture;
             throw_currentFrame = 0;
-            throwCounter = 20;
+            throwCounter = 13;
             isThrow = true;
             flag1 = false;
             stickout_currentFrame = 0;
@@ -59,11 +62,22 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 Throw();
             }
+            //
+            foreach (Lightsaber l in lightsaberList)
+            {
+                l.Update(gameTime);
+            }
+            ManageLightsaber();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            foreach (Lightsaber l in lightsaberList)
+            {
+                l.Draw(spriteBatch);
+            }
             spriteBatch.Draw(texture, position, null, Color.White, 0.0F, new Vector2(0, 0), 1F, spriteEffect, 0);
+
         }
 
         // Lightsaber
@@ -136,12 +150,15 @@ namespace _2D_StarWars_Fighter.enemies
                     texture = force[0];
                     position.X += 115;
                     isThrow = false;
+                    Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
+                    l.isVisible = true;
+                    lightsaberList.Add(l);
                 }
 
                 //#
 
                 if (throwCounter <= 0)
-                    throwCounter = 20;
+                    throwCounter = 13;
             }
         }
 
@@ -172,6 +189,24 @@ namespace _2D_StarWars_Fighter.enemies
             else if (isEntered && flag1 == false)
             {
                     StickOut();
+            }
+        }
+
+        // 
+        private void ManageLightsaber()
+        {
+            if (lightsaberList.Count != 0)
+            {
+                for (int i = 0; i < lightsaberList.Count; i++)
+                {
+                    if (lightsaberList[i].isVisible == false)
+                    {
+                        lightsaberList.RemoveAt(i);
+                        i--;
+                        texture = costume[5];
+                        position.X -= 23;
+                    }
+                }
             }
         }
 

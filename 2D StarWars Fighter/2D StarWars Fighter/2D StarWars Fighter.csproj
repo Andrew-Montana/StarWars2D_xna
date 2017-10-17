@@ -92,6 +92,7 @@
     <Compile Include="Level2.cs" />
     <Compile Include="Level2Explosions.cs" />
     <Compile Include="Level3.cs" />
+    <Compile Include="Lightsaber.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Enemy1.cs" />
     <Compile Include="ExplosionEnemy1.cs" />
