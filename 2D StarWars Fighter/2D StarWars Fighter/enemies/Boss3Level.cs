@@ -33,9 +33,14 @@ namespace _2D_StarWars_Fighter.enemies
         public int throw_currentFrame;
         public Texture2D throwTexture;
         public List<Lightsaber> lightsaberList = new List<Lightsaber>();
+        public bool isAttack;
+        //
+        public int step;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture)
         {
+            step = 0;
+            isAttack = false;
             this.throwTexture = throwTexture;
             throw_currentFrame = 0;
             throwCounter = 13;
@@ -56,12 +61,49 @@ namespace _2D_StarWars_Fighter.enemies
 
         public void Update(GameTime gameTime)
         {
-            EnterArea();
-            // Start Fight
-            if (flag1 == true)
+            switch (step)
             {
-                Throw();
+                case 0:
+                    {
+                        EnterArea();
+                        // Start Fight
+                        if (flag1 == true)
+                        {
+                            Throw();
+                        }
+                        break;
+                    }
+
+                case 1:
+                    {
+                        Push();
+                        break;
+                    }
+
+                case 2:
+                    {
+                        Throw();
+                        break;
+                    }
+
+                case 3:
+                    {
+                        Throw();
+                        break;
+                    }
+
+                case 4:
+                    {
+                        Push();
+                        break;
+                    }
+                case 5:
+                    {
+                        Teleport();
+                        break;
+                    }
             }
+
             //
             foreach (Lightsaber l in lightsaberList)
             {
@@ -124,6 +166,8 @@ namespace _2D_StarWars_Fighter.enemies
         {
             if (isThrow == true)
             {
+                isAttack = true;
+
                 if (throwCounter > 0)
                     throwCounter--;
 
@@ -153,6 +197,8 @@ namespace _2D_StarWars_Fighter.enemies
                     Lightsaber l = new Lightsaber(throwTexture, new Vector2(14440, 655), new Vector2(13500, 655));
                     l.isVisible = true;
                     lightsaberList.Add(l);
+                    isAttack = false;
+                    step++;
                 }
 
                 //#

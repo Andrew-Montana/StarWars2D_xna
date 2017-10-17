@@ -22,7 +22,7 @@ namespace _2D_StarWars_Fighter
         public Lightsaber(Texture2D texture, Vector2 startPosition, Vector2 endPosition)
         {
             flag = false;
-            speed = 7;
+            speed = 8;
             this.texture = texture;
             startPos = startPosition;
             position = startPos;
@@ -63,7 +63,7 @@ namespace _2D_StarWars_Fighter
                 if (flag == true)
                     position.X -= speed;
 
-                if (flag == true && position.X <= startPos.X)
+                if (flag == true && position.X <= (startPos.X - 40))
                     isVisible = false;
             }
 
