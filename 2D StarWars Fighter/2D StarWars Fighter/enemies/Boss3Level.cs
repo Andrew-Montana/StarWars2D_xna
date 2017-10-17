@@ -20,16 +20,23 @@ namespace _2D_StarWars_Fighter.enemies
         //
         public Texture2D[] costume = new Texture2D[6];
         public Texture2D[] force = new Texture2D[8];
-        public Texture2D[] lighsaber = new Texture2D[6];
+        public Texture2D[] lighsaber = new Texture2D[4];
         //
         public bool isEntered;
         public bool isVisible;
         //
         public int stickout_counter, stickout_currentFrame;
         public bool isStickout, flag1;
+        //
+        public bool isThrow;
+        public int throwCounter;
+        public int throw_currentFrame;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber)
         {
+            throw_currentFrame = 0;
+            throwCounter = 20;
+            isThrow = true;
             flag1 = false;
             stickout_currentFrame = 0;
             isStickout = true;
@@ -47,6 +54,11 @@ namespace _2D_StarWars_Fighter.enemies
         public void Update(GameTime gameTime)
         {
             EnterArea();
+            // Start Fight
+            if (flag1 == true)
+            {
+                Throw();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -96,7 +108,41 @@ namespace _2D_StarWars_Fighter.enemies
 
         private void Throw()
         {
+            if (isThrow == true)
+            {
+                if (throwCounter > 0)
+                    throwCounter--;
 
+                //# if standing right
+                if (throwCounter <= 0)
+                {
+                    texture = lighsaber[throw_currentFrame];
+                    if (throw_currentFrame == 0)
+                        position.X -= 22;
+                    else if (throw_currentFrame == 1)
+                        position.X -= 40;
+                    else if (throw_currentFrame == 2)
+                        position.X -= 29;
+                    else if (throw_currentFrame == 3)
+                        position.X -= 1;
+                //    else if (throw_currentFrame == 4)
+                    //    position.X += 1;
+                    throw_currentFrame++;
+                }
+
+                if (throw_currentFrame >= 4)
+                {
+                    throw_currentFrame = 0;
+                    texture = force[0];
+                    position.X += 115;
+                    isThrow = false;
+                }
+
+                //#
+
+                if (throwCounter <= 0)
+                    throwCounter = 20;
+            }
         }
 
         // Force

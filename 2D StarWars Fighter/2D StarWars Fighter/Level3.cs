@@ -62,7 +62,7 @@ namespace _2D_StarWars_Fighter
         // boss
         public Texture2D[] boss_costume = new Texture2D[6];
         public Texture2D[] boss_force = new Texture2D[8];
-        public Texture2D[] boss_lighsaber = new Texture2D[6];
+        public Texture2D[] boss_lighsaber = new Texture2D[4];
         public List<Boss3Level> bossList = new List<Boss3Level>();
 
 
