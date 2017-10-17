@@ -147,8 +147,10 @@ namespace _2D_StarWars_Fighter.enemies
                 case 11:
                     {
                         if (lightsaberList.Count == 0)
-                        Teleport();
-                        step++;
+                        {
+                            Teleport();
+                            step++;
+                        }
                         break;
                     }
                 case 12:
@@ -170,10 +172,61 @@ namespace _2D_StarWars_Fighter.enemies
                     }
                 case 15:
                     {
-                        Teleport();
-                        step = 0;
+                        if (lightsaberList.Count == 0)
+                            Push();
                         break;
                     }
+                case 16:
+                    {
+                        Teleport();
+                        step++;
+                        break;
+                    }
+                case 17:
+                    {
+                        if (lightsaberList.Count == 0)
+                            Throw(16);
+                        break;
+                    }
+                case 18:
+                    {
+                        if (lightsaberList.Count == 0)
+                        {
+                            Teleport();
+                            step++;
+                        }
+                        break;
+                    }
+                case 19:
+                    {
+                        if (lightsaberList.Count == 0)
+                            Throw(16);
+                        break;
+                    }
+                case 20:
+                    {
+                        if (lightsaberList.Count == 0)
+                        {
+                            Teleport();
+                            step++;
+                        }
+                        break;
+                    }
+                case 21:
+                    {
+                        if (lightsaberList.Count == 0)
+                            Throw(16);
+                        break;
+                    }
+                case 22:
+                    {
+                        if (lightsaberList.Count == 0)
+                        {
+                            step = 0;
+                        }
+                        break;
+                    }
+
 
 
             }
