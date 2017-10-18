@@ -60,7 +60,7 @@ namespace _2D_StarWars_Fighter.enemies
             stickout_currentFrame = 0;
             isStickout = true;
             stickout_counter = 8;
-            health = 1000;
+            health = 1100;
             spriteEffect = SpriteEffects.None; // Custom. Is looking left
             position = new Vector2(14920, 620);
             isEntered = false;
@@ -246,6 +246,9 @@ namespace _2D_StarWars_Fighter.enemies
             }
             Collision(player_ref);
             ManageLightsaber();
+            // death
+            if (health <= 0)
+                isVisible = false;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -558,7 +561,7 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 if (p.isAttacking)
                 {
-                    health -= 5;
+                    health -= 1;
                     color = Color.Orange;
                 }
 

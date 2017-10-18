@@ -79,6 +79,7 @@
     <Compile Include="EndScene_1level.cs" />
     <Compile Include="enemies\BigMachine.cs" />
     <Compile Include="enemies\Boss3Level.cs" />
+    <Compile Include="enemies\DeathBoss3.cs" />
     <Compile Include="enemies\DestroyedGonkDroid.cs" />
     <Compile Include="enemies\DroidDesAnimation.cs" />
     <Compile Include="enemies\GonkDroid.cs" />

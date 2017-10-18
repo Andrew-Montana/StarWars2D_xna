@@ -65,12 +65,12 @@ namespace _2D_StarWars_Fighter
         public Texture2D[] boss_lighsaber = new Texture2D[4];
         public List<Boss3Level> bossList = new List<Boss3Level>();
         public Texture2D throwTexture;
-
+        public Texture2D[] deathList = new Texture2D[7];
+        public List<DeathBoss3> dieList = new List<DeathBoss3>();
 
         public Level3()
         {
             player.position.X = 13000; // delete later
-            player.health = 600; // delete later
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
@@ -85,6 +85,10 @@ namespace _2D_StarWars_Fighter
 
         public void LoadContent(ContentManager Content)
         {
+            for (int i = 0; i < deathList.Length; i++)
+            {
+                deathList[i] = Content.Load<Texture2D>("level3/boss/die" + (i + 1).ToString());
+            }
             throwTexture = Content.Load<Texture2D>("level3/boss/lightsaber");
             // boss
             for (int i = 0; i < boss_costume.Length; i++)
@@ -307,6 +311,15 @@ namespace _2D_StarWars_Fighter
             }
             //
             BigMachineSpawn();
+            // boss death list
+            foreach(DeathBoss3 d in dieList)
+            {
+                d.Update(gameTime);
+            }
+            //
+            ManageDeathBossList();
+
+
             GameOver();
 
         }
@@ -390,6 +403,11 @@ namespace _2D_StarWars_Fighter
             foreach (Boss3Level b in bossList)
             {
                 b.Draw(spriteBatch);
+            }
+
+            foreach (DeathBoss3 d in dieList)
+            {
+                d.Draw(spriteBatch);
             }
             hud.Draw(spriteBatch);
         }
@@ -906,8 +924,13 @@ namespace _2D_StarWars_Fighter
                 {
                     if (bossList[i].isVisible == false)
                     {
+                        DeathBoss3 deadBoss = new DeathBoss3(deathList, bossList[i].position, bossList[i].spriteEffect);
+                        deadBoss.isVisible = true;
+
                         bossList.RemoveAt(i);
                         i--;
+
+                        dieList.Add(deadBoss);
                     }
                 }
             }
@@ -919,6 +942,23 @@ namespace _2D_StarWars_Fighter
             {
                 Game1.menuCommand = "GameOver";
                 ResetStates();
+            }
+        }
+
+        private void ManageDeathBossList()
+        {
+            if (dieList.Count != 0)
+            {
+                for (int i = 0; i < dieList.Count; i++)
+                {
+                    if (dieList[i].isVisible == false)
+                    {
+                        dieList.RemoveAt(i);
+                        i--;
+                        // Game1.menuCommand = "victory";
+                        // ResetStates();
+                    }
+                }
             }
         }
 
