@@ -41,9 +41,12 @@ namespace _2D_StarWars_Fighter.enemies
         // 
         public int push_counter;
         public int push_frame;
+        //
+        public Color color;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture, Player player)
         {
+            color = Color.White;
             push_frame = 0;
             push_counter = 30;
             player_ref = player;
@@ -65,10 +68,14 @@ namespace _2D_StarWars_Fighter.enemies
             this.force = force;
             this.lighsaber = lighsaber;
             texture = costume[0];
+            boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
         }
 
         public void Update(GameTime gameTime)
         {
+            boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            color = Color.White;
+
             switch (step)
             {
                 case 0:
@@ -235,7 +242,9 @@ namespace _2D_StarWars_Fighter.enemies
             foreach (Lightsaber l in lightsaberList)
             {
                 l.Update(gameTime);
+                PlayerCollisionLightsaber(l, player_ref);
             }
+            Collision(player_ref);
             ManageLightsaber();
         }
 
@@ -245,7 +254,7 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 l.Draw(spriteBatch);
             }
-            spriteBatch.Draw(texture, position, null, Color.White, 0.0F, new Vector2(0, 0), 1F, spriteEffect, 0);
+            spriteBatch.Draw(texture, position, null, color, 0.0F, new Vector2(0, 0), 1F, spriteEffect, 0);
 
         }
 
@@ -531,6 +540,31 @@ namespace _2D_StarWars_Fighter.enemies
                         if(spriteEffect == SpriteEffects.None)
                         position.X -= 23;
                     }
+                }
+            }
+        }
+
+        private void PlayerCollisionLightsaber(Lightsaber l, Player p)
+        {
+            if (l.boundingBox.Intersects(p.boundingBox))
+            {
+                p.health -= 3;
+            }
+        }
+
+        private void Collision(Player p)
+        {
+            if (p.boundingBox.Intersects(boundingBox))
+            {
+                if (p.isAttacking)
+                {
+                    health -= 5;
+                    color = Color.Orange;
+                }
+
+                if (isAttack)
+                {
+                    p.health -= 2;
                 }
             }
         }
