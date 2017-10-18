@@ -381,7 +381,7 @@ namespace _2D_StarWars_Fighter
                                     {
                                         item.isVisible = false;
                                     }
-                                    gameState = State.Level3; // back 1 level later
+                                    gameState = State.Level1; 
                                     MediaPlayer.Play(sm.bgMusic);
                                 //    SoundManager.musicVolume = 1.0f;
                                 //    MediaPlayer.Volume = SoundManager.musicVolume;

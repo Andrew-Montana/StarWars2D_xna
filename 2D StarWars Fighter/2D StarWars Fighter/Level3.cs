@@ -955,6 +955,7 @@ namespace _2D_StarWars_Fighter
                         dieList.RemoveAt(i);
                         i--;
                          Game1.menuCommand = "victory";
+                         HUD.playerScore = 0;
                          ResetStates();
                          MediaPlayer.Play(SoundManager.mainthemeMusic);
                     }

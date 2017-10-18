@@ -57,9 +57,9 @@ namespace _2D_StarWars_Fighter
                 spriteBatch.Draw(background_texture, bg1pos, Color.White);
                 spriteBatch.Draw(background_texture, bg2pos, Color.White);
                 spriteBatch.DrawString(bigfont, "CHAPTER iii", new Vector2(400, 120), Color.Yellow);
-                spriteBatch.DrawString(font, "On the red planet a real carnage flared up", new Vector2(200, 300), Color.Yellow);
-                spriteBatch.DrawString(font, "What is waiting for our Jedi?", new Vector2(200, 400), Color.Yellow);
-                spriteBatch.DrawString(font, "Only the Force could help him now", new Vector2(200, 500), Color.Yellow);
+                spriteBatch.DrawString(font, "On the red planet a real carnage flared up", new Vector2(300, 300), Color.Yellow);
+                spriteBatch.DrawString(font, "What is waiting for our Jedi?", new Vector2(300, 400), Color.Yellow);
+                spriteBatch.DrawString(font, "Only the Force could help him now", new Vector2(300, 500), Color.Yellow);
                 spriteBatch.DrawString(font, "Press Enter to Continue", new Vector2(400, 650), Color.White);
             }
             if(isCounting == true)
