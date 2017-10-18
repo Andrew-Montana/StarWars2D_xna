@@ -20,7 +20,7 @@ namespace _2D_StarWars_Fighter
         // State Enum
         public enum State
         {
-            Menu, Level1, Gameover, Settings, Level1EndScene, Level2, Level2EndScene, Level3
+            Menu, Level1, Gameover, Settings, Level1EndScene, Level2, Level2EndScene, Level3, Victory
         }
 
         #region variables
@@ -83,6 +83,8 @@ namespace _2D_StarWars_Fighter
         Scene_2level endscene_level2 = new Scene_2level();
         Level2 level2 = new Level2();
         Level3 level3 = new Level3();
+        Victory victory = new Victory();
+
 
         // Constructor
         public Game1()
@@ -110,7 +112,8 @@ namespace _2D_StarWars_Fighter
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             sm.LoadContent(Content); // Loads Sound
-
+            // victory
+            victory.LoadContent(Content);
             // Sound
             MediaPlayer.Play(sm.bgMusic); // background song is playing
                 #region Level1
@@ -173,12 +176,6 @@ namespace _2D_StarWars_Fighter
 
         protected override void Update(GameTime gameTime)
         {
-           // if (gameState != State.Level2 && gameState != State.Level2EndScene) // delete it later
-            if (gameState == State.Gameover) // delete it later
-                gameState = State.Gameover; // delete it later
-            else if (gameState != State.Level3) // delete it later
-                gameState = State.Level3; // delete it later
-
 
             #region 1 Level Sounds
             if (HUD.playerScore >= 35 && isTherePlayerSound && gameState == State.Level1)
@@ -469,11 +466,24 @@ namespace _2D_StarWars_Fighter
                                 level3.Update(gameTime);
                                 camera.Update(gameTime, level3.GetPlayer());
 
-                           //     if (menuCommand == "level2scene")
-                         //       {
-                           //         menuCommand = "";
-                          //          gameState = State.Level2EndScene;
-                         //       }
+                                if (menuCommand == "victory")
+                                {
+                                    menuCommand = "";
+                                    gameState = State.Victory;
+                                }
+                                break;
+                            }
+                    #endregion
+
+                    #region Victory
+                    case State.Victory:
+                            {
+                                victory.Update(gameTime);
+                                if (menuCommand == "menu")
+                                {
+                                    gameState = State.Menu;
+                                    menuCommand = "";
+                                }
                                 break;
                             }
                     #endregion
@@ -618,6 +628,16 @@ namespace _2D_StarWars_Fighter
                         //  spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
                         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.transform);
                         level3.Draw(spriteBatch);
+                        spriteBatch.End();
+                        break;
+                    }
+                #endregion
+
+                #region Victory
+                case State.Victory:
+                    {
+                        spriteBatch.Begin();
+                        victory.Draw(spriteBatch);
                         spriteBatch.End();
                         break;
                     }

@@ -70,7 +70,6 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
-            player.position.X = 13000; // delete later
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
@@ -955,8 +954,9 @@ namespace _2D_StarWars_Fighter
                     {
                         dieList.RemoveAt(i);
                         i--;
-                        // Game1.menuCommand = "victory";
-                        // ResetStates();
+                         Game1.menuCommand = "victory";
+                         ResetStates();
+                         MediaPlayer.Play(SoundManager.mainthemeMusic);
                     }
                 }
             }
