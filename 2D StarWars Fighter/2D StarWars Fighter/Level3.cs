@@ -69,9 +69,11 @@ namespace _2D_StarWars_Fighter
         public List<DeathBoss3> dieList = new List<DeathBoss3>();
         // Sound
         private bool flag_scorpSound;
+        private bool flag_impSound;
 
         public Level3()
         {
+            flag_impSound = false;
             flag_scorpSound = false;
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
@@ -215,6 +217,7 @@ namespace _2D_StarWars_Fighter
                                 bullet.position = new Vector2(imp.position.X + 30, imp.position.Y + (imp.texture.Height / 2) - 10);
                             }
                         imperialBulletList.Add(bullet);
+                        SoundManager.imp_shoot.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     }
 
                     if (impBulletCounter <= 0)
@@ -231,6 +234,7 @@ namespace _2D_StarWars_Fighter
                     imperialDeathList.Add(id);
                     //
                     imp.isVisible = false;
+                    SoundManager.imp_death.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
             }
 
@@ -978,11 +982,18 @@ namespace _2D_StarWars_Fighter
                 flag_scorpSound = true;
 
             }
+
+            if (player.position.X >= 9900 && flag_impSound == false)
+            {
+                SoundManager.imp_talk.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                flag_impSound = true;
+
+            }
         }
 
         private void ResetStates()
         {
-            player.health = 600;
+            player.health = 200;
             destroyedDroidsCount = 0;
             player.position = new Vector2(300, 720);
             scorpionList.Clear();
@@ -996,6 +1007,7 @@ namespace _2D_StarWars_Fighter
             bossList.Clear();
             player.isEndPosition = false;
             flag_scorpSound = false;
+            flag_impSound = false;
         }
     }
 }
