@@ -29,9 +29,13 @@ namespace _2D_StarWars_Fighter.enemies
         public int movementCounter;
         public int movementFrame;
 
+       // sound 
+        public int walk_counter;
+
 
         public Walker(Texture2D[] textures, Texture2D standTexture, Vector2 newPosition, Player player )
         {
+            walk_counter = 0;
             movementFrame = 0;
             movementCounter = 7;
             isAttackingAnimation = false;
@@ -65,6 +69,31 @@ namespace _2D_StarWars_Fighter.enemies
         {
             if (isMoving == true)
             {
+                if (playerRef.position.X > position.X)
+                {
+                    if ((playerRef.position.X - position.X) < 900)
+                    {
+                        if (walk_counter == 0)
+                        {
+                            SoundManager.walker_walk.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                            walk_counter++;
+                        }
+                    }
+                }
+
+                if (playerRef.position.X < position.X)
+                {
+                    if ((position.X - playerRef.position.X) < 1200)
+                    {
+                        if (walk_counter == 0)
+                        {
+                            SoundManager.walker_walk.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                            walk_counter++;
+                        }
+                    }
+                }
+
+
                 // If player stands righter of scorpion, scorpion going right
                 if (playerRef.position.X > position.X)
                 {
@@ -81,6 +110,12 @@ namespace _2D_StarWars_Fighter.enemies
                     // movement
                     position.X = position.X - speed;
                 }
+
+                if(walk_counter > 0)
+                walk_counter++;
+
+                if (walk_counter >= 110)
+                    walk_counter = 0;
 
             }
         }
