@@ -30,9 +30,11 @@ namespace _2D_StarWars_Fighter.enemies
         //
         public bool isRight;
         public SpriteEffects spriteEffect;
+        private int work_counter;
 
         public GonkDroid(Texture2D newCostume1, Texture2D newCostume2, Texture2D bullet, Vector2 newPosition, Player p, List<Hit> hitList, Texture2D[] newhitTexture, List<Scorpion> scorpionsList, List<SandExplosion> mainSandExplosionList, Texture2D[] MainSandTextures)
         {
+            work_counter = 0;
             sandTextures = MainSandTextures;
             sandExplosionList = mainSandExplosionList;
             scorpList = scorpionsList;
@@ -55,17 +57,26 @@ namespace _2D_StarWars_Fighter.enemies
         {
             boundingBox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
 
-            if ((position.X - playerRef.position.X) <= 2000 && isRight == false)
+            if ((position.X - playerRef.position.X) <= 1200 && isRight == false)
             {
-                Shoot();
+                if (playerRef.position.X < position.X)
+                {
+                    Shoot();
+                }
             }
             if (isRight == true)
             {
                 foreach (Scorpion scorp in scorpList)
                 {
-                    if ((scorp.position.X - position.X) <= 300)
+
+                    if ((scorp.position.X - position.X) <= 600 && scorp.position.X >= position.X)
                     {
+                        if(work_counter == 0)
+                            SoundManager.gonkdroid_work.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                         Shoot();
+                        work_counter++;
+                        if (work_counter >= 85)
+                            work_counter = 0;
                     }
                 }
             }
@@ -99,6 +110,7 @@ namespace _2D_StarWars_Fighter.enemies
                         b.position.X += 40;
                     }
                     bulletList.Add(b);
+                    SoundManager.gonkdroid_shoot.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     texture = costume2;
                 }
             }
@@ -130,7 +142,7 @@ namespace _2D_StarWars_Fighter.enemies
                     b.position.X += b.speed;
                     b.boundingBox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
 
-                    if (b.position.X >= 1600)
+                    if (b.position.X >= 1900)
                     {
                         b.isVisible = false;
                     }
@@ -178,6 +190,7 @@ namespace _2D_StarWars_Fighter.enemies
                     s.isVisible = false;
                     SandExplosion explosion = new SandExplosion(new Vector2(s.position.X, s.position.Y + 20), sandTextures) { isVisible = true };
                     sandExplosionList.Add(explosion);
+                    bullet.isVisible = false;
                 }
             }
 
@@ -190,6 +203,7 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 IsVisible = false;
                 HUD.playerScore += 50;
+                SoundManager.gonkdroid_explode.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
             }
 
         }

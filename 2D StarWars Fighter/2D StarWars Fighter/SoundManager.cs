@@ -35,10 +35,15 @@ namespace _2D_StarWars_Fighter
         static public SoundEffect playerShoot;
         static public Song level2music;
 
-        // level 3
+        //# level 3
         static public SoundEffect scorp_attack;
         static public SoundEffect scorp_acklay;
         static public SoundEffect scorp_sand;
+        static public SoundEffect gonkdroid_shoot;
+        static public SoundEffect gonkdroid_explode;
+        static public SoundEffect gonkdroid_work;
+        static public SoundEffect walker_walk;
+        static public SoundEffect walker_shoot;
 
         // Constructor
         public SoundManager()
@@ -55,6 +60,9 @@ namespace _2D_StarWars_Fighter
             scorp_attack = Content.Load<SoundEffect>("level3/sound/scorpion/attack");
             scorp_acklay = Content.Load<SoundEffect>("level3/sound/scorpion/acklay");
             scorp_sand = Content.Load<SoundEffect>("level3/sound/scorpion/sand");
+            gonkdroid_shoot = Content.Load<SoundEffect>("level3/sound/gonk/shoot2");
+            gonkdroid_explode = Content.Load<SoundEffect>("level3/sound/gonk/explode");
+            gonkdroid_work = Content.Load<SoundEffect>("level3/sound/gonk/working");
             // #
             enemyShootSound = Content.Load<SoundEffect>("sound/blaster");
             explodeSound = Content.Load<SoundEffect>("sound/enemydeath");
