@@ -49,6 +49,11 @@ namespace _2D_StarWars_Fighter
         static public SoundEffect imp_shoot;
         static public SoundEffect imp_death;
         static public Song boss_3level;
+        static public SoundEffect boss_throw;
+        static public SoundEffect boss_loud;
+        static public SoundEffect boss_hit; // player hitted
+        static public SoundEffect boss_force;
+        static public SoundEffect boss_death;
 
         // Constructor
         public SoundManager()
@@ -76,6 +81,11 @@ namespace _2D_StarWars_Fighter
             imp_talk = Content.Load<SoundEffect>("level3/sound/imp/talk");
             imp_shoot = Content.Load<SoundEffect>("level3/sound/imp/shoot");
             imp_death = Content.Load<SoundEffect>("level3/sound/imp/death");
+            boss_throw = Content.Load<SoundEffect>("level3/sound/boss/throw");
+            boss_loud = Content.Load<SoundEffect>("level3/sound/boss/loud2");
+            boss_hit = Content.Load<SoundEffect>("level3/sound/boss/hit2");
+            boss_force = Content.Load<SoundEffect>("level3/sound/boss/force");
+            boss_death = Content.Load<SoundEffect>("level3/sound/boss/death");
             // #
             enemyShootSound = Content.Load<SoundEffect>("sound/blaster");
             explodeSound = Content.Load<SoundEffect>("sound/enemydeath");

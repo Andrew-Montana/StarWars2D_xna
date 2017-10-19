@@ -43,9 +43,12 @@ namespace _2D_StarWars_Fighter.enemies
         public int push_frame;
         //
         public Color color;
+        //
+        public bool isLoud = false;
 
         public Boss3Level(Texture2D[] costume, Texture2D[] force, Texture2D[] lighsaber, Texture2D throwTexture, Player player)
         {
+            isLoud = false;
             color = Color.White;
             push_frame = 0;
             push_counter = 30;
@@ -274,7 +277,9 @@ namespace _2D_StarWars_Fighter.enemies
                 {
                     texture = costume[stickout_currentFrame];
                     if (stickout_currentFrame == 1)
+                    {
                         position.X -= 40;
+                    }
                     if (stickout_currentFrame == 3)
                         position.X -= 7;
                     if (stickout_currentFrame == 4)
@@ -340,6 +345,7 @@ namespace _2D_StarWars_Fighter.enemies
                         lightsaberList.Add(l);
                         isAttack = false;
                         step++;
+                        SoundManager.boss_throw.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     }
                 } // #
                 else if (spriteEffect == SpriteEffects.FlipHorizontally)
@@ -359,6 +365,7 @@ namespace _2D_StarWars_Fighter.enemies
                         lightsaberList.Add(l);
                         isAttack = false;
                         step++;
+                        SoundManager.boss_throw.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     }
                 }
                 
@@ -408,6 +415,7 @@ namespace _2D_StarWars_Fighter.enemies
                     lightsaberList.Add(l);
                     isAttack = false;
                     step++;
+                    SoundManager.boss_throw.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
             } // #
             else if (spriteEffect == SpriteEffects.FlipHorizontally)
@@ -428,6 +436,7 @@ namespace _2D_StarWars_Fighter.enemies
                     lightsaberList.Add(l);
                     isAttack = false;
                     step++;
+                    SoundManager.boss_throw.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
             }
 
@@ -452,7 +461,10 @@ namespace _2D_StarWars_Fighter.enemies
                     texture = force[push_frame];
                     //
                     if (push_frame == 1)
+                    {
                         position.X -= 17;
+                        SoundManager.boss_force.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                    }
                     if (push_frame == 3)
                         position.X += 5;
                     if (push_frame == 4)
@@ -524,6 +536,11 @@ namespace _2D_StarWars_Fighter.enemies
             }
             else if (isEntered && flag1 == false)
             {
+                if (isLoud == false)
+                {
+                    SoundManager.boss_loud.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                    isLoud = true;
+                }
                     StickOut();
             }
         }
@@ -552,6 +569,7 @@ namespace _2D_StarWars_Fighter.enemies
             if (l.boundingBox.Intersects(p.boundingBox))
             {
                 p.health -= 3;
+                SoundManager.boss_hit.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
             }
         }
 

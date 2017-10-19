@@ -74,7 +74,8 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
-            player.health = 2000;
+          //  player.position.X = 13000;
+          //  player.health = 2000;
             flag_bossSong = false;
             flag_impSound = false;
             flag_scorpSound = false;
@@ -942,6 +943,7 @@ namespace _2D_StarWars_Fighter
 
                         bossList.RemoveAt(i);
                         i--;
+                        SoundManager.boss_death.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
 
                         dieList.Add(deadBoss);
                     }
