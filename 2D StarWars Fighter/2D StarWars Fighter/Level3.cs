@@ -74,8 +74,8 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
-          //  player.position.X = 13000;
-          //  player.health = 2000;
+            player.position.X = 13000;
+            player.health = 2000;
             flag_bossSong = false;
             flag_impSound = false;
             flag_scorpSound = false;
@@ -998,6 +998,7 @@ namespace _2D_StarWars_Fighter
             if (player.isEndPosition && flag_bossSong == false)
             {
                 MediaPlayer.Play(SoundManager.boss_3level);
+                SoundManager.boss_talk.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 flag_bossSong = true;
 
             }
