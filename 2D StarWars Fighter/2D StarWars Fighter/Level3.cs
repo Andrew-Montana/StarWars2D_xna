@@ -616,6 +616,7 @@ namespace _2D_StarWars_Fighter
                         if (w.spriteEffect == SpriteEffects.FlipHorizontally)
                             bullet.isLeft = true;
                     walkerBulletList.Add(bullet);
+                    SoundManager.walker_shoot.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
                 if (bulletDelay <= 0)
                     bulletDelay = 30;
