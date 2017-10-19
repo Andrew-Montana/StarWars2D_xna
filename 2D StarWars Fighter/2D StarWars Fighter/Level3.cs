@@ -70,9 +70,12 @@ namespace _2D_StarWars_Fighter
         // Sound
         private bool flag_scorpSound;
         private bool flag_impSound;
+        private bool flag_bossSong;
 
         public Level3()
         {
+            player.health = 2000;
+            flag_bossSong = false;
             flag_impSound = false;
             flag_scorpSound = false;
             impBulletCounter = 35;
@@ -989,6 +992,14 @@ namespace _2D_StarWars_Fighter
                 flag_impSound = true;
 
             }
+
+            if (player.isEndPosition && flag_bossSong == false)
+            {
+                MediaPlayer.Play(SoundManager.boss_3level);
+                flag_bossSong = true;
+
+            }
+
         }
 
         private void ResetStates()
@@ -1008,6 +1019,7 @@ namespace _2D_StarWars_Fighter
             player.isEndPosition = false;
             flag_scorpSound = false;
             flag_impSound = false;
+            flag_bossSong = false;
         }
     }
 }
