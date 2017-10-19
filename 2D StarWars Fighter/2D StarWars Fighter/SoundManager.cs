@@ -44,6 +44,7 @@ namespace _2D_StarWars_Fighter
         static public SoundEffect gonkdroid_work;
         static public SoundEffect walker_walk;
         static public SoundEffect walker_shoot;
+        static public SoundEffect walker_boom;
 
         // Constructor
         public SoundManager()
@@ -65,6 +66,7 @@ namespace _2D_StarWars_Fighter
             gonkdroid_work = Content.Load<SoundEffect>("level3/sound/gonk/working");
             walker_walk = Content.Load<SoundEffect>("level3/sound/walker/walk");
             walker_shoot = Content.Load<SoundEffect>("level3/sound/walker/shoot");
+            walker_boom = Content.Load<SoundEffect>("level3/sound/walker/boom");
             // #
             enemyShootSound = Content.Load<SoundEffect>("sound/blaster");
             explodeSound = Content.Load<SoundEffect>("sound/enemydeath");

@@ -257,6 +257,7 @@ namespace _2D_StarWars_Fighter
                     explosionObject.isVisible = true;
                     explosionsList.Add(explosionObject);
                     HUD.playerScore += 40;
+                    SoundManager.walker_boom.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
             }
 
