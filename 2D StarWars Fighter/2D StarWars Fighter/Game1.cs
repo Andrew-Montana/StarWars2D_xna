@@ -176,6 +176,8 @@ namespace _2D_StarWars_Fighter
 
         protected override void Update(GameTime gameTime)
         {
+            if (gameState != State.Level3)
+                gameState = State.Level3;
 
             #region 1 Level Sounds
             if (HUD.playerScore >= 35 && isTherePlayerSound && gameState == State.Level1)

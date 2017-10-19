@@ -192,8 +192,13 @@ namespace _2D_StarWars_Fighter.enemies
                     currentFrame++;
                 }
 
+                if(currentFrame == 8)
+                    SoundManager.scorp_attack.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+
                 if (currentFrame >= 9)
+                {
                     currentFrame = 0;
+                }
 
                 // reset counter
                 if (animationCounter <= 0)

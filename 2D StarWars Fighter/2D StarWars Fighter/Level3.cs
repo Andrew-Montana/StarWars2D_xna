@@ -67,9 +67,12 @@ namespace _2D_StarWars_Fighter
         public Texture2D throwTexture;
         public Texture2D[] deathList = new Texture2D[7];
         public List<DeathBoss3> dieList = new List<DeathBoss3>();
+        // Sound
+        private bool flag_scorpSound;
 
         public Level3()
         {
+            flag_scorpSound = false;
             impBulletCounter = 35;
             destroyedDroidsCount = 0;
             bulletDelay = 15;
@@ -174,6 +177,7 @@ namespace _2D_StarWars_Fighter
         public void Update(GameTime gameTime)
         {
             player.Update(gameTime);
+            SoundEffects();
             SpawnScorpions();
             SpawnWalkers();
             SpawnDroids();
@@ -504,6 +508,7 @@ namespace _2D_StarWars_Fighter
                     {
                         scorpionList.RemoveAt(i);
                         i--;
+                        SoundManager.scorp_sand.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     }
                 }
             }
@@ -963,6 +968,16 @@ namespace _2D_StarWars_Fighter
             }
         }
 
+        private void SoundEffects()
+        {
+            if (player.position.X >= 500 && flag_scorpSound == false)
+            {
+                SoundManager.scorp_acklay.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                flag_scorpSound = true;
+
+            }
+        }
+
         private void ResetStates()
         {
             player.health = 600;
@@ -978,7 +993,7 @@ namespace _2D_StarWars_Fighter
             bigMachineList.Clear();
             bossList.Clear();
             player.isEndPosition = false;
-
+            flag_scorpSound = false;
         }
     }
 }
