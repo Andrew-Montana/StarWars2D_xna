@@ -923,11 +923,11 @@ namespace _2D_StarWars_Fighter
         {
             if (bigMachineList.Count <= 1)
             {
-                BigMachine bm = new BigMachine(stand, walk1, walk2, new Vector2(9500, 190));
+                BigMachine bm = new BigMachine(stand, walk1, walk2, new Vector2(9500, 190), player);
                 bm.spriteEffect = SpriteEffects.None;
                 bm.isVisible = true;
 
-                BigMachine bm2 = new BigMachine(stand, walk1, walk2, new Vector2(1900, 190));
+                BigMachine bm2 = new BigMachine(stand, walk1, walk2, new Vector2(1900, 190), player);
                 bm2.spriteEffect = SpriteEffects.None;
                 bm2.isVisible = true;
                 bigMachineList.Add(bm);

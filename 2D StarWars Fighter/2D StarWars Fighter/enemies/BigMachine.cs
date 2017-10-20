@@ -19,9 +19,13 @@ namespace _2D_StarWars_Fighter.enemies
         public int speed;
         private int counter;
         private int currentFrame;
+        private Player p;
+        private int soundcounter;
 
-        public BigMachine(Texture2D textureStand, Texture2D textureWalk1, Texture2D textureWalk2, Vector2 newPosition )
+        public BigMachine(Texture2D textureStand, Texture2D textureWalk1, Texture2D textureWalk2, Vector2 newPosition, Player player )
         {
+            soundcounter = 210;
+            p = player;
             currentFrame = 1;
             speed = 1;
             counter = 18;
@@ -55,12 +59,47 @@ namespace _2D_StarWars_Fighter.enemies
                     position.X += speed;
                 }
 
+            Sound();
             MovementAnimation();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, position, null, Color.White, 0.0F, new Vector2(0, 0), 1F, spriteEffect, 0);
+        }
+
+        private void Sound()
+        {
+            // игрок левее
+            if (p.position.X < position.X)
+            {
+                if ((position.X - p.position.X) < 1350)
+                {
+                    if (soundcounter == 230)
+                        SoundManager.atat.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+                    if (soundcounter > 0)
+                        soundcounter--;
+
+                    if (soundcounter <= 0)
+                        soundcounter = 230;
+                }
+            }
+            // pravee
+            if(p.position.X > position.X)
+            {
+                if((p.position.X - position.X) < 1350)
+                {
+                    if (soundcounter == 230)
+                        SoundManager.atat.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+
+                    if (soundcounter > 0)
+                        soundcounter--;
+
+                    if (soundcounter <= 0)
+                        soundcounter = 230;
+                }
+            }
+
         }
 
         private void MovementAnimation()

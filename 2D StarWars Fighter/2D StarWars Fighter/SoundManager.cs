@@ -55,6 +55,7 @@ namespace _2D_StarWars_Fighter
         static public SoundEffect boss_force;
         static public SoundEffect boss_death;
         static public SoundEffect boss_talk;
+        static public SoundEffect atat;
 
         // Constructor
         public SoundManager()
@@ -69,6 +70,7 @@ namespace _2D_StarWars_Fighter
         {
             // # 3 level 
          //   boss_3level = Content.Load<Song>("level3/sound/Star Wars Duel Of The Fates");
+            atat = Content.Load<SoundEffect>("level3/sound/at at walk");
             boss_3level = Content.Load<Song>("level3/sound/Star Wars The Sith Spacecraft");
             scorp_attack = Content.Load<SoundEffect>("level3/sound/scorpion/attack");
             scorp_acklay = Content.Load<SoundEffect>("level3/sound/scorpion/acklay");
