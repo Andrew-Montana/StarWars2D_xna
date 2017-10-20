@@ -77,7 +77,7 @@ namespace _2D_StarWars_Fighter
         {
             kol = 0;
          //   player.position.X = 13000; // for easy testing
-          //  player.health = 2000; // for easy testing
+           player.health = 260; // for easy testing
             flag_bossSong = false;
             flag_impSound = false;
             flag_scorpSound = false;
@@ -1025,7 +1025,7 @@ namespace _2D_StarWars_Fighter
 
         private void ResetStates()
         {
-            player.health = 200;
+            player.health = 260;
             destroyedDroidsCount = 0;
             player.position = new Vector2(300, 720);
             scorpionList.Clear();

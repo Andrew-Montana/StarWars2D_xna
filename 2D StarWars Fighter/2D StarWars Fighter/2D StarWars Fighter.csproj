@@ -16,7 +16,7 @@
     <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>c1f21372-5a32-4a60-af21-73a4b5f20a06</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
-    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <ApplicationIcon>droid-android-helmet-star-wars-512.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>опубликовать\</PublishUrl>
@@ -111,6 +111,7 @@
     <Compile Include="Victory.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="droid-android-helmet-star-wars-512.ico" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
