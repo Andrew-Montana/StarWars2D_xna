@@ -38,6 +38,7 @@ namespace _2D_StarWars_Fighter
         private int bulletDelay;
         private Texture2D[] hitTextures = new Texture2D[3];
         private List<Hit> hitExplosions = new List<Hit>();
+        private int kol;
         // explosions
         private Texture2D explosionTexture;
         List<Level2Explosions> explosionsList = new List<Level2Explosions>();
@@ -74,6 +75,7 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
+            kol = 0;
          //   player.position.X = 13000; // for easy testing
           //  player.health = 2000; // for easy testing
             flag_bossSong = false;
@@ -625,10 +627,26 @@ namespace _2D_StarWars_Fighter
                         if (w.spriteEffect == SpriteEffects.FlipHorizontally)
                             bullet.isLeft = true;
                     walkerBulletList.Add(bullet);
+                    kol++;
                     SoundManager.walker_shoot.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                 }
-                if (bulletDelay <= 0)
-                    bulletDelay = 30;
+
+                if (kol < 10)
+                {
+                    if (bulletDelay <= 0)
+                        bulletDelay = 40;
+                }
+                else if (kol == 10)
+                {
+                    if (bulletDelay <= 0)
+                        bulletDelay = 120;
+                }
+                else if (kol > 10)
+                {
+                    if (bulletDelay <= 0)
+                        bulletDelay = 40;
+                    kol = 0;
+                }
 
             }
 
@@ -1023,6 +1041,7 @@ namespace _2D_StarWars_Fighter
             flag_scorpSound = false;
             flag_impSound = false;
             flag_bossSong = false;
+            kol = 0;
         }
     }
 }
