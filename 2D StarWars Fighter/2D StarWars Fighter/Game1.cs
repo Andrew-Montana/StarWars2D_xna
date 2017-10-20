@@ -90,9 +90,9 @@ namespace _2D_StarWars_Fighter
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferHeight = 720;    
             this.Window.Title = "XNA = 2D StarWars Fighter";
             Content.RootDirectory = "Content";
             enemyBulletDamage = 10;

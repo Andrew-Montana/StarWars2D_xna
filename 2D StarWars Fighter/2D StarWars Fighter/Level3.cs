@@ -60,6 +60,7 @@ namespace _2D_StarWars_Fighter
         private List<Bullet> imperialBulletList = new List<Bullet>();
         private int impBulletCounter;
         private List<ImperialDeath> imperialDeathList = new List<ImperialDeath>();
+        private int imp_kol;
         // boss
         public Texture2D[] boss_costume = new Texture2D[6];
         public Texture2D[] boss_force = new Texture2D[8];
@@ -75,6 +76,7 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
+            imp_kol = 0;
             kol = 0;
          //   player.position.X = 13000; // for easy testing
            player.health = 260; // for easy testing
@@ -223,11 +225,28 @@ namespace _2D_StarWars_Fighter
                                 bullet.position = new Vector2(imp.position.X + 30, imp.position.Y + (imp.texture.Height / 2) - 10);
                             }
                         imperialBulletList.Add(bullet);
+                        imp_kol++;
                         SoundManager.imp_shoot.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
                     }
 
-                    if (impBulletCounter <= 0)
-                        impBulletCounter = 35;
+                    if (imp_kol < 10)
+                    {
+                        if (impBulletCounter <= 0)
+                            impBulletCounter = 35;
+                    }
+                    else if (imp_kol == 10)
+                    {
+                        if (impBulletCounter <= 0)
+                            impBulletCounter = 110;
+                    }
+                    else if (imp_kol > 10)
+                    {
+                        if (impBulletCounter <= 0)
+                        {
+                            impBulletCounter = 35;
+                            imp_kol = 0;
+                        }
+                    }
 
                 }
                 // COLLISION
@@ -644,8 +663,10 @@ namespace _2D_StarWars_Fighter
                 else if (kol > 10)
                 {
                     if (bulletDelay <= 0)
+                    {
                         bulletDelay = 40;
-                    kol = 0;
+                        kol = 0;
+                    }
                 }
 
             }
@@ -1042,6 +1063,7 @@ namespace _2D_StarWars_Fighter
             flag_impSound = false;
             flag_bossSong = false;
             kol = 0;
+            imp_kol = 0;
         }
     }
 }
