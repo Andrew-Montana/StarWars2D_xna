@@ -165,17 +165,41 @@ namespace _2D_StarWars_Fighter.enemies
         {
             if (playerRef.boundingBox.Intersects(bullet.boundingBox))
             {
-                if (playerRef.isDefending != true)
+                if (isRight == true)
                 {
-                    if (playerRef.spriteEffect == SpriteEffects.None)
+                    if (playerRef.isDefending == false)
                     {
-                        playerRef.health -= 30;
+                        playerRef.health -= 25;
                         bullet.isVisible = false;
                     }
+                    //
+                    if (playerRef.isDefending == true)
+                    {
+                        if (playerRef.spriteEffect != SpriteEffects.FlipHorizontally)
+                        {
+                            playerRef.health -= 25;
+                            bullet.isVisible = false;
+                        }
+                    }
                 }
-                else if(playerRef.isDefending == true)
+                //
+
+                if (isRight == false)
                 {
-                    bullet.isVisible = false;
+                    if (playerRef.isDefending == false)
+                    {
+                        playerRef.health -= 25;
+                        bullet.isVisible = false;
+                    }
+                    //
+                    if (playerRef.isDefending == true)
+                    {
+                        if (playerRef.spriteEffect != SpriteEffects.None)
+                        {
+                            playerRef.health -= 25;
+                            bullet.isVisible = false;
+                        }
+                    }
                 }
 
                 Hit hit = new Hit(hitTextures, new Vector2( playerRef.position.X + 30,  playerRef.position.Y + 30));

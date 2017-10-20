@@ -74,8 +74,8 @@ namespace _2D_StarWars_Fighter
 
         public Level3()
         {
-            player.position.X = 13000;
-            player.health = 2000;
+         //   player.position.X = 13000; // for easy testing
+          //  player.health = 2000; // for easy testing
             flag_bossSong = false;
             flag_impSound = false;
             flag_scorpSound = false;
