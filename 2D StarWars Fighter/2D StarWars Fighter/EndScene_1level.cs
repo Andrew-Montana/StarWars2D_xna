@@ -46,6 +46,12 @@ namespace _2D_StarWars_Fighter
                 {
                     Game1.menuCommand = "2level";
                     MediaPlayer.Play(SoundManager.level2music);
+                    //
+                    // reset states
+                    isCounting = false;
+                    counter = 1900;
+                    bg1pos = new Vector2(0, 0);
+                    bg2pos = new Vector2(0, -720);
                 }
             }
         }

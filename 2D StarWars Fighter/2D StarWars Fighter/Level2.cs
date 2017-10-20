@@ -219,6 +219,7 @@ namespace _2D_StarWars_Fighter
             if (playerShip.health <= 0)
             {
                 Game1.menuCommand = "GameOver";
+                ResetStates();
             }
         }
         // Asteroids
@@ -394,6 +395,7 @@ namespace _2D_StarWars_Fighter
                 {
                     Game1.menuCommand = "level2scene";
                     MediaPlayer.Play(SoundManager.mainthemeMusic);
+                    ResetStates();
                 }
             }
 
@@ -413,6 +415,29 @@ namespace _2D_StarWars_Fighter
             {
                 //
             }
+        }
+
+        private void ResetStates()
+        {
+            playerShip.health = 200;
+            playerShip.position = new Vector2(100, 400);
+            mustafarPos = new Vector2(1400, 0);
+            isEnd = false;
+            //
+            surviveCounter = 47000;
+            backgroundSpeed = 1;
+            DefaultAsteroidDelay = 50;
+            enemyLimit = 10;
+            asteroidLimit = 30;
+            destroyCount = 0;
+            difficulty = 1;
+            bg1Pos = new Vector2(0, 0);
+            bg2Pos = new Vector2(1280, 0);
+            asteroidDelay = 120;
+            enemyDelay = 80;
+            asteroidList.Clear();
+            enemyList.Clear();
+            explosionsList.Clear();
         }
 
     }
