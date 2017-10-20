@@ -487,6 +487,9 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 if (push_counter <= 0)
                 {
+                    if(push_frame == 1)
+                        SoundManager.boss_force.Play(volume: SoundManager.effectsVolume, pitch: 0.0f, pan: 0.0f);
+
                     texture = force[push_frame];
                     push_frame++;
                     if (position.X >= 14000)

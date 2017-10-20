@@ -167,6 +167,9 @@ namespace _2D_StarWars_Fighter.enemies
             {
                 if (isRight == true)
                 {
+                    if (playerRef.isDefending == true)
+                        bullet.isVisible = false;
+
                     if (playerRef.isDefending == false)
                     {
                         playerRef.health -= 25;
@@ -186,6 +189,9 @@ namespace _2D_StarWars_Fighter.enemies
 
                 if (isRight == false)
                 {
+                    if (playerRef.isDefending == true)
+                        bullet.isVisible = false;
+
                     if (playerRef.isDefending == false)
                     {
                         playerRef.health -= 25;
@@ -201,6 +207,8 @@ namespace _2D_StarWars_Fighter.enemies
                         }
                     }
                 }
+
+                
 
                 Hit hit = new Hit(hitTextures, new Vector2( playerRef.position.X + 30,  playerRef.position.Y + 30));
                 hit.isVisible = true;
